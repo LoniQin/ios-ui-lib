@@ -5,7 +5,7 @@
 //  Created by lonnie on 2020/9/25.
 //
 import Foundation
-enum AnimationKey: String, CaseIterable {
+public enum AnimationKey: String, CaseIterable {
     
     case anchorPoint
     
@@ -57,28 +57,28 @@ enum AnimationKey: String, CaseIterable {
     
     case sublayerTransform
     
-    static let transform = Transform.transform
+    public static let transform = Transform.transform
     
     case zPosition
     
     
-    enum Transform: String {
+    public enum Transform: String {
         
         case transform
         
-        enum Rotation: String {
+        public enum Rotation: String {
             
             case rotation
             
-            var x: String {
+            public var x: String {
                 getDescription("x")
             }
             
-            var y: String {
+            public var y: String {
                 getDescription("y")
             }
             
-            var z: String {
+            public var z: String {
                 getDescription("z")
             }
             
@@ -87,19 +87,19 @@ enum AnimationKey: String, CaseIterable {
             }
         }
         
-        enum Scale: String {
+        public enum Scale: String {
             
-            case scale
+            public case scale
             
-            var x: String {
+            public var x: String {
                 getDescription("x")
             }
             
-            var y: String {
+            public var y: String {
                 getDescription("y")
             }
             
-            var z: String {
+            public var z: String {
                 getDescription("z")
             }
             
@@ -108,19 +108,19 @@ enum AnimationKey: String, CaseIterable {
             }
         }
         
-        enum Translation: String {
+        public enum Translation: String {
             
             case translation
             
-            var x: String {
+            public var x: String {
                 getDescription("x")
             }
             
-            var y: String {
+            public var y: String {
                 getDescription("y")
             }
             
-            var z: String {
+            public var z: String {
                 getDescription("z")
             }
             
@@ -129,15 +129,15 @@ enum AnimationKey: String, CaseIterable {
             }
         }
         
-        var rotation: Rotation {
+        public var rotation: Rotation {
             Rotation.rotation
         }
         
-        var transation: Translation {
+        public var transation: Translation {
             Translation.translation
         }
         
-        var scale: Scale {
+        public var scale: Scale {
             Scale.scale
         }
         
