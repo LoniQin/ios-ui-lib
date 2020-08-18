@@ -2,12 +2,16 @@ import XCTest
 @testable import UILib
 
 final class UILibTests: XCTestCase {
+    
     func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-        XCTAssertEqual(UILib().text, "Hello, World!")
+        
     }
+    
+    func testUIExtension() {
+        let color = UIColor(0xffbbaa)
+        XCTAssertEqual(color.toInt(), 0xffbbaa)
+    }
+
 
     static var allTests = [
         ("testExample", testExample),
