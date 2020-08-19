@@ -11,11 +11,11 @@ public struct Screen {
     
     private var screen: UIScreen
     
-    private init(screen: UIScreen) {
+    public init(screen: UIScreen) {
         self.screen = screen
     }
     
-    static var main = Screen(screen: .main)
+    public static var main = Screen(screen: .main)
     
     public var width: CGFloat { screen.bounds.size.width }
     
@@ -23,7 +23,7 @@ public struct Screen {
     
     public var scale: CGFloat { screen.scale }
     
-    func snapshotView(afterScreenUpdates afterUpdates: Bool) -> UIView {
+    public func snapshotView(afterScreenUpdates afterUpdates: Bool) -> UIView {
         return screen.snapshotView(afterScreenUpdates: afterUpdates)
     }
     
