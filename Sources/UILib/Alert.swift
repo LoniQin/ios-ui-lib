@@ -35,17 +35,17 @@ public struct Alert {
     
     public var actions: [Action]
     
-    public var hostViewController: UIViewControllerConvertable
+    public var host: UIViewControllerConvertable
     
     public init(
-        hostViewController: UIViewControllerConvertable,
+        host: UIViewControllerConvertable,
         title: String = "",
         message: String = "",
         actions: [Action] = []) {
         self.title = title
         self.message = message
         self.actions = actions
-        self.hostViewController = hostViewController
+        self.host = host
     }
     
     public func show() {
@@ -55,7 +55,7 @@ public struct Alert {
                 action.block()
             }))
         }
-        hostViewController.toViewController().present(alert, animated: true, completion: nil)
+        host.toViewController().present(alert, animated: true, completion: nil)
     }
     
 }

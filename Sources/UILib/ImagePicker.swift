@@ -18,14 +18,14 @@ public class ImagePicker: NSObject, UIImagePickerControllerDelegate, UINavigatio
     
     }
     
-    private var hostViewController: UIViewControllerConvertable
+    private var host: UIViewControllerConvertable
     
     private var pickerViewController: UIImagePickerController
     
     private var completion: (Result)->Void
     
     public init(hostViewController: UIViewControllerConvertable, sourceType: UIImagePickerController.SourceType = .photoLibrary, completion: @escaping (Result)->Void = {_ in }) throws {
-        self.hostViewController = hostViewController
+        self.host = hostViewController
         self.pickerViewController = UIImagePickerController()
         self.completion = completion
         super.init()
@@ -35,7 +35,7 @@ public class ImagePicker: NSObject, UIImagePickerControllerDelegate, UINavigatio
     }
     
     public func show() {
-        hostViewController.toViewController().present(self.pickerViewController, animated: true, completion: nil)
+        host.toViewController().present(self.pickerViewController, animated: true, completion: nil)
     }
     
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {

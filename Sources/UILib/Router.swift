@@ -13,11 +13,17 @@ public struct Router {
         case present
         
         case push
+        
+        case pop
+        
+        case popToRoot
+        
+        case popTo(UIViewControllerConvertable)
     }
     
-    public let from: UIViewControllerConvertable
+    public let host: UIViewControllerConvertable
     
-    public let to: UIViewControllerConvertable
+    public let destination: UIViewControllerConvertable? = nil
     
     public let method: Method = .push
     
@@ -28,10 +34,19 @@ public struct Router {
     func start() {
         switch method {
         case .push:
-            from.toViewController().navigationController?.pushViewController(to.toViewController(), animated: animated)
+            host.toViewController().navigationController?.pushViewController(destination!.toViewController(), animated: animated)
             completion()
-        default:
-            from.toViewController().present(to.toViewController(), animated: animated, completion: completion)
+        case .pop:
+            host.toViewController().navigationController?.popViewController(animated: animated)
+            completion()
+        case .popToRoot:
+            host.toViewController().navigationController?.popToRootViewController(animated: animated)
+            completion()
+        case .popTo(let controller):
+            host.toViewController().navigationController?.popToViewController(controller.toViewController(), animated: animated)
+            completion()
+        case .present:
+            host.toViewController().present(destination!.toViewController(), animated: animated, completion: completion)
         }
     }
     
