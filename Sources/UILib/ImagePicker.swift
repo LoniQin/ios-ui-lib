@@ -18,7 +18,7 @@ public class ImagePicker: NSObject, UIImagePickerControllerDelegate, UINavigatio
     
     }
     
-    private var hostViewController: UIViewControllerConvertable?
+    private var hostViewController: UIViewControllerConvertable
     
     private var pickerViewController: UIImagePickerController
     
@@ -35,7 +35,7 @@ public class ImagePicker: NSObject, UIImagePickerControllerDelegate, UINavigatio
     }
     
     public func show() {
-        hostViewController?.toViewController().present(self.pickerViewController, animated: true, completion: nil)
+        hostViewController.toViewController().present(self.pickerViewController, animated: true, completion: nil)
     }
     
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
