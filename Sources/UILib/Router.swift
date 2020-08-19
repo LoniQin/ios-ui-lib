@@ -9,7 +9,9 @@ import Foundation
 public struct Router {
     
     public enum Method {
+        
         case present
+        
         case push
     }
     

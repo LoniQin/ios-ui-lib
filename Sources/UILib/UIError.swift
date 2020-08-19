@@ -8,5 +8,7 @@
 import Foundation
 
 public enum UIError: Error {
+    
     case imageSourceTypeNotAvailable
+    
 }
