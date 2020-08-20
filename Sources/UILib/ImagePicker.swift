@@ -49,4 +49,5 @@ public class ImagePicker: NSObject, UIImagePickerControllerDelegate, UINavigatio
             self?.completion(.cancel)
         })
     }
+    
 }

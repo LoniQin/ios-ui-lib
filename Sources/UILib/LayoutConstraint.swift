@@ -1,11 +1,12 @@
 //
-//  File.swift
+//  LayoutConstraint.swift
 //  
 //
 //  Created by lonnie on 2020/1/1.
 //
 
 import UIKit
+
 protocol LayoutConstraintConvertable {
     func toLayoutConstraints(with firstItem: UIView, secondItem: UIView?) -> [NSLayoutConstraint]
 }

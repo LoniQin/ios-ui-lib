@@ -6,7 +6,6 @@
 //
 import UIKit
 import Foundation
-
 public struct Device {
     
     private var current: UIDevice  { UIDevice.current }
