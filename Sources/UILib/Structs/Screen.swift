@@ -25,6 +25,8 @@ public struct Screen {
     
     public var scale: CGFloat { screen.scale }
     
+    public var nativeScale: CGFloat { screen.nativeScale }
+    
     public func snapshotView(afterScreenUpdates afterUpdates: Bool) -> UIView {
         return screen.snapshotView(afterScreenUpdates: afterUpdates)
     }
