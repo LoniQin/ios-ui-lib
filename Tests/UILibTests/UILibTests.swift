@@ -18,7 +18,27 @@ final class UILibTests: XCTestCase {
     
     func testUIExtension() {
         let color = UIColor(0xffbbaa)
-        XCTAssertEqual(color.toInt(), 0xffbbaa)
+        color.toInt().assert.equal(0xffbbaa)
+    }
+    
+    
+    func testLayoutConstraints() {
+        var firstView = UIView()
+        var secondView = UIView()
+        firstView.addSubview(secondView)
+        secondView.makeLayout(.equalToSuperView())
+        firstView.constraints.count.assert.equal(4)
+    
+        firstView = UIView()
+        secondView = UIView()
+        
+        firstView.addSubview(secondView)
+        secondView.makeLayout(.equalTo(CGSize(width: 100, height: 200)))
+        firstView.constraints.count.assert.equal(2)
+        firstView.constraints[0].firstAttribute.assert.equal(.width)
+        firstView.constraints[0].firstAttribute.assert.equal(.width)
+        firstView.constraints[1].firstAttribute.assert.equal(.height)
+        
     }
     
     func testImportTableViewCell() {

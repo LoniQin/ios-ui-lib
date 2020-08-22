@@ -5,8 +5,8 @@
 //  Created by lonnie on 2020/8/20.
 //
 #if canImport(UIKit)
+
 import UIKit
-import Foundation
 
 public class ImagePicker: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -51,4 +51,5 @@ public class ImagePicker: NSObject, UIImagePickerControllerDelegate, UINavigatio
     }
     
 }
+
 #endif

@@ -6,7 +6,9 @@
 //  Copyright © 2020 com.lonnie.demos. All rights reserved.
 //
 #if canImport(UIKit)
+
 import UIKit
+
 fileprivate var tapKey: String = "tapKey"
 public extension UIView {
     typealias GestureRecognizerBlock = (UIGestureRecognizer)->Void
@@ -20,4 +22,5 @@ public extension UIView {
         block?(gesture)
     }
 }
+
 #endif

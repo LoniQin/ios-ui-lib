@@ -5,6 +5,7 @@
 //  Created by lonnie on 2020/1/1.
 //
 #if canImport(UIKit)
+
 import UIKit
 
 protocol LayoutConstraintConvertable {
@@ -24,6 +25,8 @@ public struct LayoutConstraint: LayoutConstraintConvertable {
     public var relation: NSLayoutConstraint.Relation
        
     public var priority: UILayoutPriority
+    
+    public var relateToSuperView = false
        
     init(
         attribute: NSLayoutConstraint.Attribute,
@@ -31,13 +34,15 @@ public struct LayoutConstraint: LayoutConstraintConvertable {
         secondAttribute: NSLayoutConstraint.Attribute? = nil,
         multiplay: CGFloat = 1.0,
         constant: CGFloat = 0.0,
-        priority: UILayoutPriority = .required) {
+        priority: UILayoutPriority = .required,
+        relateToSuperView: Bool = true) {
         self.attribute = attribute
         self.secondAttribute = secondAttribute ?? attribute
         self.relation = relation
         self.multiplay = multiplay
         self.constant = constant
         self.priority = priority
+        self.relateToSuperView = relateToSuperView
     }
        
     func toLayoutConstraints(with firstItem: UIView, secondItem: UIView?) -> [NSLayoutConstraint] {
@@ -46,7 +51,7 @@ public struct LayoutConstraint: LayoutConstraintConvertable {
                 item: firstItem,
                 attribute: attribute,
                 relatedBy: relation,
-                toItem: secondItem,
+                toItem: (secondItem == nil && relateToSuperView) ? firstItem.superview : secondItem,
                 attribute: secondAttribute,
                 multiplier: multiplay,
                 constant: constant
@@ -90,8 +95,8 @@ public enum LayoutStrategy: LayoutConstraintConvertable {
     
     static func equalTo(_ size: CGSize) -> LayoutStrategy {
         return .constraints([
-            .init(attribute: .width, constant: size.width),
-            .init(attribute: .height, constant: size.height),
+            .init(attribute: .width, constant: size.width, relateToSuperView: false),
+            .init(attribute: .height, constant: size.height, relateToSuperView: false),
         ])
     }
 
@@ -117,10 +122,10 @@ public enum LayoutStrategy: LayoutConstraintConvertable {
 public extension UIView {
     
     func makeLayout(_ constraint: LayoutStrategy, secondItem: UIView? = nil) {
-        if translatesAutoresizingMaskIntoConstraints {
-            translatesAutoresizingMaskIntoConstraints = false
+        if let value = superview?.translatesAutoresizingMaskIntoConstraints, value == true {
+            superview?.translatesAutoresizingMaskIntoConstraints = false
         }
-        NSLayoutConstraint.activate(constraint.toLayoutConstraints(with: self, secondItem: secondItem))
+        superview?.addConstraints(constraint.toLayoutConstraints(with: self, secondItem: secondItem))
     }
     
 }

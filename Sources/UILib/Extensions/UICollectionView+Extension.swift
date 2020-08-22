@@ -6,7 +6,9 @@
 //
 
 #if canImport(UIKit)
+
 import UIKit
+
 public extension UICollectionView {
     
     func dequeueCell<T: UICollectionViewCell>(_ indexPath: IndexPath) -> T {
