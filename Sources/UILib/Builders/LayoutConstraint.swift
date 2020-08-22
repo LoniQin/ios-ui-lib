@@ -164,7 +164,12 @@ public extension UIView {
         if let value = superview?.translatesAutoresizingMaskIntoConstraints, value == true {
             superview?.translatesAutoresizingMaskIntoConstraints = false
         }
-        superview?.addConstraints(strategy.toLayoutConstraints(with: self))
+        let constraints = strategy.toLayoutConstraints(with: self)
+        if superview == nil {
+            addConstraints(constraints)
+        } else {
+            superview?.addConstraints(constraints)
+        }
     }
     
     func makeLayout(_ strategies: [LayoutStrategy]) {
