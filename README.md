@@ -13,7 +13,7 @@ An iOS UI Library which is easy to use.
   - [x] [Screen](https://github.com/LoniQin/ios-ui-lib/blob/master/Sources/UILib/Structs/Screen.swift)
   - [x] [Router](https://github.com/LoniQin/ios-ui-lib/blob/master/Sources/UILib/Structs/Router.swift)
   - [x] [ImagePicker](https://github.com/LoniQin/ios-ui-lib/blob/master/Sources/UILib/Structs/ImagePicker.swift)
-  - [x] [Alert]((https://github.com/LoniQin/ios-ui-lib/blob/master/Sources/UILib/Structs/Alert.swift)
+  - [x] [Alert](https://github.com/LoniQin/ios-ui-lib/blob/master/Sources/UILib/Structs/Alert.swift)
 - [ ] Builders
   - [ ] UITableView
   - [ ] UICollectionView
