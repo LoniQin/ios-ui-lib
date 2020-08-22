@@ -1,24 +1,28 @@
 import XCTest
 @testable import UILib
+
+#if canImport(UIKit)
 class TableViewCell: UITableViewCell {
     
 }
 class CollectonViewCell: UICollectionViewCell {
     
 }
+#endif
+
 final class UILibTests: XCTestCase {
     
     func testExample() {
         
     }
     
-    
+    #if canImport(UIKit)
     
     func testUIExtension() {
         let color = UIColor(0xffbbaa)
         XCTAssertEqual(color.toInt(), 0xffbbaa)
     }
-    #if canImport(UIKit)
+    
     func testImportTableViewCell() {
         
         "\(TableViewCell.classForCoder())".assert.equal("TableViewCell")

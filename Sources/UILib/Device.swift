@@ -4,6 +4,7 @@
 //
 //  Created by lonnie on 2020/8/20.
 //
+#if canImport(UIKit)
 import UIKit
 import Foundation
 public struct Device {
@@ -41,3 +42,4 @@ public struct Device {
     public var userInterfaceIdiom: UIUserInterfaceIdiom { current.userInterfaceIdiom }
     
 }
+#endif

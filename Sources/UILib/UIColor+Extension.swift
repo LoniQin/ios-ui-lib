@@ -4,7 +4,7 @@
 //
 //  Created by lonnie on 2020/8/19.
 //
-
+#if canImport(UIKit)
 import UIKit
 
 public extension UIColor {
@@ -30,3 +30,4 @@ public extension UIColor {
     }
     
 }
+#endif

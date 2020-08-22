@@ -4,7 +4,7 @@
 //
 //  Created by lonnie on 2020/8/20.
 //
-
+#if canImport(UIKit)
 import Foundation
 import UIKit
 public struct Alert {
@@ -59,3 +59,4 @@ public struct Alert {
     }
     
 }
+#endif

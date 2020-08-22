@@ -4,7 +4,7 @@
 //
 //  Created by lonnie on 2020/1/1.
 //
-
+#if canImport(UIKit)
 import UIKit
 
 protocol LayoutConstraintConvertable {
@@ -125,5 +125,5 @@ public extension UIView {
     
 }
 
-
+#endif
 

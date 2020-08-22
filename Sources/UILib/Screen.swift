@@ -4,7 +4,7 @@
 //
 //  Created by lonnie on 2020/8/20.
 //
-
+#if canImport(UIKit)
 import Foundation
 import UIKit
 public struct Screen {
@@ -28,3 +28,4 @@ public struct Screen {
     }
     
 }
+#endif

@@ -5,6 +5,7 @@
 //  Created by gzuser on 8/20/20.
 //  Copyright © 2020 com.lonnie.demos. All rights reserved.
 //
+#if canImport(UIKit)
 import UIKit
 import FoundationLib
 
@@ -64,3 +65,4 @@ public extension UIControl {
    
     }
 }
+#endif
