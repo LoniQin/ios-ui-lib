@@ -24,3 +24,5 @@ An iOS UI Library which is easy to use.
   - [x] AutoLayout
   - [ ] UITableView
   - [ ] UICollectionView
+  - [ ] WKWebView
+
