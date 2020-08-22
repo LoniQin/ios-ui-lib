@@ -61,6 +61,19 @@ final class UILibTests: XCTestCase {
         ])
         view.constraints.count.assert.equal(4)
         
+        view = UIView()
+        firstView = UIView()
+        secondView = UIView()
+        view.addSubviews([firstView, secondView])
+        firstView.makeLayout([
+            .equalToSuperView()
+        ])
+        
+        secondView.makeLayout([
+            .equal(.leading, firstView, .trailing, constant: 16),
+            .equal(.trailing, view, .trailing, constant: -16)
+        ])
+        view.constraints.count.assert.equal(6)
     }
     
     func testImportTableViewCell() {

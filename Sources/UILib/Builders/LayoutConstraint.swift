@@ -107,16 +107,16 @@ public enum LayoutStrategy: LayoutConstraintConvertable {
         ])
     }
     
-    public static func equal(_ attribute: NSLayoutConstraint.Attribute, _ view: UIView? = nil, _ secondAttirbute: NSLayoutConstraint.Attribute? = nil, constat: CGFloat = 0) -> LayoutStrategy {
-        return .constraint(attribute: attribute, relation: .equal, secondAttribute: secondAttirbute ?? attribute, multiplay: 1.0, constant: constat, priority: .required)
+    public static func equal(_ attribute: NSLayoutConstraint.Attribute, _ view: UIView? = nil, _ secondAttirbute: NSLayoutConstraint.Attribute? = nil, constant: CGFloat = 0) -> LayoutStrategy {
+        return .constraint(attribute: attribute, relation: .equal, secondAttribute: secondAttirbute ?? attribute, multiplay: 1.0, constant: constant, priority: .required)
     }
     
     public static func equalLeading(_ view: UIView? = nil, offset: CGFloat = 0) -> LayoutStrategy {
-        .equal(.leading, view, constat: offset)
+        .equal(.leading, view, constant: offset)
     }
     
     public static func equalTrailing(_ view: UIView? = nil, offset: CGFloat = 0) -> LayoutStrategy {
-        .equal(.trailing, view, constat: -offset)
+        .equal(.trailing, view, constant: -offset)
     }
     
     public static func equalVertical(_ view: UIView? = nil, offset: (CGFloat, CGFloat) = (0, 0)) -> LayoutStrategy {
@@ -127,11 +127,11 @@ public enum LayoutStrategy: LayoutConstraintConvertable {
     }
     
     public static func equalTop(_ view: UIView? = nil, offset: CGFloat = 0) -> LayoutStrategy {
-        .equal(.top, view, constat: offset)
+        .equal(.top, view, constant: offset)
     }
     
     public static func equalBottom(_ view: UIView? = nil, offset: CGFloat = 0) -> LayoutStrategy {
-        .equal(.bottom, view, constat: -offset)
+        .equal(.bottom, view, constant: -offset)
     }
     
     public func toLayoutConstraints(with firstItem: UIView) -> [NSLayoutConstraint] {
@@ -155,6 +155,7 @@ public enum LayoutStrategy: LayoutConstraintConvertable {
             }
         }
     }
+    
 }
 
 public extension UIView {
