@@ -17,4 +17,4 @@ An iOS UI Library which is easy to use.
 - [ ] Builders
   - [ ] UITableView
   - [ ] UICollectionView
-  - [ ] AutoLayout
+  - [ x ] AutoLayout
