@@ -21,7 +21,6 @@ public extension UITableView {
         if let cell = nib.instantiate(withOwner: nil, options: nil).first as? UITableViewCell {
             register(nib, forCellReuseIdentifier: cell.classForCoder.description())
         }
-        
     }
     
 }

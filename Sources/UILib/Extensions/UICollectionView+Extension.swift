@@ -19,6 +19,12 @@ public extension UICollectionView {
         register(cls, forCellWithReuseIdentifier: cls.description())
     }
     
+    func register(_ nib: UINib) {
+        if let cell = nib.instantiate(withOwner: nil, options: nil).first as? UICollectionViewCell {
+            register(nib, forCellWithReuseIdentifier: cell.classForCoder.description())
+        }
+    }
+    
 }
 
 #endif
