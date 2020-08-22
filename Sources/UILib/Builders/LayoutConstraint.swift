@@ -87,11 +87,9 @@ public enum LayoutStrategy: LayoutConstraintConvertable {
     }
     
     static func equalTo(_ edgeInsets: UIEdgeInsets = .zero, view: UIView? = nil) -> LayoutStrategy {
-        return .constraints([
-            .init(attribute: .leading, secondItem: view, constant: edgeInsets.left),
-            .init(attribute: .trailing, secondItem: view,  constant: -edgeInsets.right),
-            .init(attribute: .top, secondItem: view, constant: edgeInsets.top),
-            .init(attribute: .bottom, secondItem: view, constant: -edgeInsets.bottom),
+        return .strategies([
+            .equalHorizontal(view, offset: (edgeInsets.left, edgeInsets.right)),
+            .equalVertical(view, offset: (edgeInsets.top, edgeInsets.bottom))
         ])
     }
     
@@ -101,26 +99,26 @@ public enum LayoutStrategy: LayoutConstraintConvertable {
             .init(attribute: .height, constant: size.height, relateToSuperView: false),
         ])
     }
-
+    
+    static func equalHorizontal(_ view: UIView? = nil, offset: (CGFloat, CGFloat) = (0, 0)) -> LayoutStrategy {
+        return .strategies([
+            .equalLeading(view, offset: offset.0),
+            .equalTrailing(view, offset: offset.1)
+        ])
+    }
+    
     static func equalLeading(_ view: UIView? = nil, offset: CGFloat = 0) -> LayoutStrategy {
         return .constraint(attribute: .leading, relation: .equal, secondAttribute: .leading, multiplay: 1.0, constant: offset, priority: .required)
     }
     
     static func equalTrailing(_ view: UIView? = nil, offset: CGFloat = 0) -> LayoutStrategy {
-        return .constraint(attribute: .trailing, relation: .equal, secondAttribute: .trailing, multiplay: 1.0, constant: offset, priority: .required)
-    }
-    
-    static func equalHorizontal(_ view: UIView? = nil, offset: (CGFloat, CGFloat) = (0, 0)) -> LayoutStrategy {
-        return .constraints([
-            .init(attribute: .leading, secondItem: view, constant: offset.0),
-            .init(attribute: .trailing, secondItem: view, constant: -offset.1),
-        ])
+        return .constraint(attribute: .trailing, relation: .equal, secondAttribute: .trailing, multiplay: 1.0, constant: -offset, priority: .required)
     }
     
     static func equalVertical(_ view: UIView? = nil, offset: (CGFloat, CGFloat) = (0, 0)) -> LayoutStrategy {
-        return .constraints([
-            .init(attribute: .top, secondItem: view, constant: offset.0),
-            .init(attribute: .bottom, secondItem: view, constant: -offset.1),
+        return .strategies([
+            .equalTop(view, offset: offset.0),
+            .equalBottom(view, offset: offset.1)
         ])
     }
     
@@ -129,7 +127,7 @@ public enum LayoutStrategy: LayoutConstraintConvertable {
     }
     
     static func equalBottom(_ view: UIView? = nil, offset: CGFloat = 0) -> LayoutStrategy {
-        return .constraint(attribute: .bottom, relation: .equal, secondAttribute: .bottom, multiplay: 1.0, constant: offset, priority: .required)
+        return .constraint(attribute: .bottom, relation: .equal, secondAttribute: .bottom, multiplay: 1.0, constant: -offset, priority: .required)
     }
     
     
