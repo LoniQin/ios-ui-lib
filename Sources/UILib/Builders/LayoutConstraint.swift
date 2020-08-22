@@ -9,12 +9,14 @@
 import UIKit
 
 protocol LayoutConstraintConvertable {
-    func toLayoutConstraints(with firstItem: UIView, secondItem: UIView?) -> [NSLayoutConstraint]
+    func toLayoutConstraints(with firstItem: UIView) -> [NSLayoutConstraint]
 }
 
 public struct LayoutConstraint: LayoutConstraintConvertable {
     
     public var attribute: NSLayoutConstraint.Attribute
+    
+    var secondItem: UIView? = nil
     
     public var secondAttribute: NSLayoutConstraint.Attribute
        
@@ -31,12 +33,15 @@ public struct LayoutConstraint: LayoutConstraintConvertable {
     init(
         attribute: NSLayoutConstraint.Attribute,
         relation: NSLayoutConstraint.Relation = .equal,
+        secondItem: UIView? = nil,
         secondAttribute: NSLayoutConstraint.Attribute? = nil,
         multiplay: CGFloat = 1.0,
         constant: CGFloat = 0.0,
         priority: UILayoutPriority = .required,
-        relateToSuperView: Bool = true) {
+        relateToSuperView: Bool = true
+    ) {
         self.attribute = attribute
+        self.secondItem = secondItem
         self.secondAttribute = secondAttribute ?? attribute
         self.relation = relation
         self.multiplay = multiplay
@@ -45,7 +50,7 @@ public struct LayoutConstraint: LayoutConstraintConvertable {
         self.relateToSuperView = relateToSuperView
     }
        
-    func toLayoutConstraints(with firstItem: UIView, secondItem: UIView?) -> [NSLayoutConstraint] {
+    func toLayoutConstraints(with firstItem: UIView) -> [NSLayoutConstraint] {
         [
             NSLayoutConstraint(
                 item: firstItem,
@@ -58,17 +63,8 @@ public struct LayoutConstraint: LayoutConstraintConvertable {
             )
         ]
     }
-    
-    static func equalToSuperView(with edgeInsets: UIEdgeInsets) -> [LayoutConstraint] {
-        [
-            .init(attribute: .leading, constant: edgeInsets.left),
-            .init(attribute: .trailing, constant: edgeInsets.right),
-            .init(attribute: .top, constant: edgeInsets.top),
-            .init(attribute: .bottom, constant: edgeInsets.bottom)
-        ]
-    }
-}
 
+}
 
 public enum LayoutStrategy: LayoutConstraintConvertable {
     
@@ -83,13 +79,19 @@ public enum LayoutStrategy: LayoutConstraintConvertable {
     
     case constraints([LayoutConstraint])
     
+    case strategies([LayoutStrategy])
+    
     
     static func equalToSuperView(_ edgeInsets: UIEdgeInsets = .zero) -> LayoutStrategy {
+        return equalTo(edgeInsets)
+    }
+    
+    static func equalTo(_ edgeInsets: UIEdgeInsets = .zero, view: UIView? = nil) -> LayoutStrategy {
         return .constraints([
-            .init(attribute: .leading, constant: edgeInsets.left),
-            .init(attribute: .trailing, constant: edgeInsets.right),
-            .init(attribute: .top, constant: edgeInsets.top),
-            .init(attribute: .bottom, constant: edgeInsets.bottom),
+            .init(attribute: .leading, secondItem: view, constant: edgeInsets.left),
+            .init(attribute: .trailing, secondItem: view,  constant: -edgeInsets.right),
+            .init(attribute: .top, secondItem: view, constant: edgeInsets.top),
+            .init(attribute: .bottom, secondItem: view, constant: -edgeInsets.bottom),
         ])
     }
     
@@ -100,7 +102,38 @@ public enum LayoutStrategy: LayoutConstraintConvertable {
         ])
     }
 
-    public func toLayoutConstraints(with firstItem: UIView, secondItem: UIView?) -> [NSLayoutConstraint] {
+    static func equalLeading(_ view: UIView? = nil, offset: CGFloat = 0) -> LayoutStrategy {
+        return .constraint(attribute: .leading, relation: .equal, secondAttribute: .leading, multiplay: 1.0, constant: offset, priority: .required)
+    }
+    
+    static func equalTrailing(_ view: UIView? = nil, offset: CGFloat = 0) -> LayoutStrategy {
+        return .constraint(attribute: .trailing, relation: .equal, secondAttribute: .trailing, multiplay: 1.0, constant: offset, priority: .required)
+    }
+    
+    static func equalHorizontal(_ view: UIView? = nil, offset: (CGFloat, CGFloat) = (0, 0)) -> LayoutStrategy {
+        return .constraints([
+            .init(attribute: .leading, secondItem: view, constant: offset.0),
+            .init(attribute: .trailing, secondItem: view, constant: -offset.1),
+        ])
+    }
+    
+    static func equalVertical(_ view: UIView? = nil, offset: (CGFloat, CGFloat) = (0, 0)) -> LayoutStrategy {
+        return .constraints([
+            .init(attribute: .top, secondItem: view, constant: offset.0),
+            .init(attribute: .bottom, secondItem: view, constant: -offset.1),
+        ])
+    }
+    
+    static func equalTop(_ view: UIView? = nil, offset: CGFloat = 0) -> LayoutStrategy {
+        return .constraint(attribute: .top, relation: .equal, secondAttribute: .top, multiplay: 1.0, constant: offset, priority: .required)
+    }
+    
+    static func equalBottom(_ view: UIView? = nil, offset: CGFloat = 0) -> LayoutStrategy {
+        return .constraint(attribute: .bottom, relation: .equal, secondAttribute: .bottom, multiplay: 1.0, constant: offset, priority: .required)
+    }
+    
+    
+    public func toLayoutConstraints(with firstItem: UIView) -> [NSLayoutConstraint] {
         switch self {
         case .constraint(let constraint, let relation, let secondAttribute, let multiplay, let constant, let priority):
             return LayoutConstraint(
@@ -110,10 +143,14 @@ public enum LayoutStrategy: LayoutConstraintConvertable {
                 multiplay: multiplay,
                 constant: constant,
                 priority: priority
-            ).toLayoutConstraints(with: firstItem, secondItem: secondItem)
+            ).toLayoutConstraints(with: firstItem)
         case .constraints(let constraints):
             return constraints.flatMap {
-                $0.toLayoutConstraints(with: firstItem, secondItem: secondItem)
+                $0.toLayoutConstraints(with: firstItem)
+            }
+        case .strategies(let value):
+            return value.flatMap {
+                $0.toLayoutConstraints(with: firstItem)
             }
         }
     }
@@ -121,11 +158,11 @@ public enum LayoutStrategy: LayoutConstraintConvertable {
 
 public extension UIView {
     
-    func makeLayout(_ constraint: LayoutStrategy, secondItem: UIView? = nil) {
+    func makeLayout(_ constraint: LayoutStrategy) {
         if let value = superview?.translatesAutoresizingMaskIntoConstraints, value == true {
             superview?.translatesAutoresizingMaskIntoConstraints = false
         }
-        superview?.addConstraints(constraint.toLayoutConstraints(with: self, secondItem: secondItem))
+        superview?.addConstraints(constraint.toLayoutConstraints(with: self))
     }
     
 }

@@ -36,8 +36,19 @@ final class UILibTests: XCTestCase {
         secondView.makeLayout(.equalTo(CGSize(width: 100, height: 200)))
         firstView.constraints.count.assert.equal(2)
         firstView.constraints[0].firstAttribute.assert.equal(.width)
-        firstView.constraints[0].firstAttribute.assert.equal(.width)
         firstView.constraints[1].firstAttribute.assert.equal(.height)
+        
+        
+        var view = UIView()
+        
+        firstView = UIView()
+        secondView = UIView()
+        
+        view.addSubview(firstView)
+        view.addSubview(secondView)
+        firstView.makeLayout(.equalToSuperView())
+        secondView.makeLayout(.equalTo(view: firstView))
+        view.constraints.count.assert.equal(8)
         
     }
     
