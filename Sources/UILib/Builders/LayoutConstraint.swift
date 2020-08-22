@@ -161,8 +161,8 @@ public enum LayoutStrategy: LayoutConstraintConvertable {
 public extension UIView {
     
     func makeLayout(_ strategy: LayoutStrategy) {
-        if let value = superview?.translatesAutoresizingMaskIntoConstraints, value == true {
-            superview?.translatesAutoresizingMaskIntoConstraints = false
+        if translatesAutoresizingMaskIntoConstraints {
+            translatesAutoresizingMaskIntoConstraints.toggle()
         }
         let constraints = strategy.toLayoutConstraints(with: self)
         if superview == nil {
