@@ -11,7 +11,9 @@ import UIKit
 
 fileprivate var tapKey: String = "tapKey"
 public extension UIView {
+    
     typealias GestureRecognizerBlock = (UIGestureRecognizer)->Void
+    
     func onTap(_ block: @escaping GestureRecognizerBlock) -> Void {
         setAssociatedValue(block, with: &tapKey)
         self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapEvent)))
@@ -21,6 +23,19 @@ public extension UIView {
         let block: GestureRecognizerBlock? = getAssociatedValue(with: &tapKey)
         block?(gesture)
     }
+    
+    func addSubviews(_ views: [UIView]) {
+        views.forEach {
+            addSubview($0)
+        }
+    }
+    
+    func removeSubviews(_ views: [UIView]) {
+        views.forEach {
+            $0.removeFromSuperview()
+        }
+    }
+    
 }
 
 #endif
