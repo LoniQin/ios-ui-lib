@@ -1,15 +1,6 @@
 import XCTest
 @testable import UILib
 
-#if canImport(UIKit)
-class TableViewCell: UITableViewCell {
-    
-}
-class CollectonViewCell: UICollectionViewCell {
-    
-}
-#endif
-
 final class UILibTests: XCTestCase {
     
     func testExample() {
@@ -17,6 +8,13 @@ final class UILibTests: XCTestCase {
     }
     
     #if canImport(UIKit)
+    
+    class TableViewCell: UITableViewCell {
+        
+    }
+    class CollectonViewCell: UICollectionViewCell {
+        
+    }
     
     func testUIExtension() {
         let color = UIColor(0xffbbaa)
@@ -48,4 +46,5 @@ final class UILibTests: XCTestCase {
     static var allTests = [
         ("testExample", testExample),
     ]
+    
 }
