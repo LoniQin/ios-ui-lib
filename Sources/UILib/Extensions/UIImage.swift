@@ -1,5 +1,5 @@
 //
-//  UIImage+Extension.swift
+//  UIImage.swift
 //  
 //
 //  Created by lonnie on 2020/8/23.

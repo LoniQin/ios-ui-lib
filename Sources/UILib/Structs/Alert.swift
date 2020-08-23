@@ -23,11 +23,11 @@ public struct Alert {
 
         }
         
-        public var title: String
+        public let title: String
         
-        public var style: Style
+        public let style: Style
         
-        public var block: ()->Void
+        public let block: ()->Void
         
         public init(
             title: String,
@@ -40,11 +40,13 @@ public struct Alert {
         
     }
     
-    public var title: String
+    public let title: String
     
-    public var message: String
+    public let message: String
     
     public var actions: [Action]
+    
+    public var textFieldBlocks: [(UITextField)->Void] = []
     
     public weak var host: UIViewControllerConvertable?
     
@@ -59,13 +61,26 @@ public struct Alert {
         self.host = host
     }
     
+    public mutating func addTextField(_ block: @escaping (UITextField)->Void) {
+        self.textFieldBlocks.append(block)
+    }
+    
     public func show() {
+        
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
         for action in actions {
             alert.addAction(UIAlertAction(title: action.title, style: UIAlertAction.Style(rawValue: action.style.rawValue) ?? .default, handler: { _ in
                 action.block()
             }))
         }
+        
+        for block in textFieldBlocks {
+            alert.addTextField { (textField) in
+                block(textField)
+            }
+        }
+        
         host?.toViewController().present(alert, animated: true, completion: nil)
     }
     

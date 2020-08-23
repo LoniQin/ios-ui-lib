@@ -1,5 +1,5 @@
 //
-//  UIView+Extension.swift
+//  UIView.swift
 //  CryptorDemo
 //
 //  Created by gzuser on 8/20/20.
@@ -10,9 +10,15 @@
 import UIKit
 
 fileprivate var tapKey: String = "tapKey"
+
 public extension UIView {
     
     typealias GestureRecognizerBlock = (UIGestureRecognizer)->Void
+    
+    convenience init(color: UIColor) {
+        self.init()
+        self.backgroundColor = color
+    }
     
     func onTap(_ block: @escaping GestureRecognizerBlock) -> Void {
         setAssociatedValue(block, with: &tapKey)

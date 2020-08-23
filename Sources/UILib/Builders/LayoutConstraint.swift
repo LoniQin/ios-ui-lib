@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol LayoutConstraintConvertable {
+public protocol LayoutConstraintConvertable {
     func toLayoutConstraints(with firstItem: UIView) -> [NSLayoutConstraint]
 }
 
