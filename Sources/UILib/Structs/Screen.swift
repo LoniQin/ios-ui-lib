@@ -11,13 +11,13 @@ import UIKit
 
 public struct Screen {
     
-    private var screen: UIScreen
+    private let screen: UIScreen
     
     public init(screen: UIScreen) {
         self.screen = screen
     }
     
-    public static var main = Screen(screen: .main)
+    public static let main = Screen(screen: .main)
     
     public var width: CGFloat { screen.bounds.size.width }
     

@@ -24,12 +24,16 @@ public class ImagePicker: NSObject, UIImagePickerControllerDelegate, UINavigatio
     
     private var completion: (Result)->Void
     
-    public init(hostViewController: UIViewControllerConvertable, sourceType: UIImagePickerController.SourceType = .photoLibrary, completion: @escaping (Result)->Void = {_ in }) throws {
-        self.host = hostViewController
+    public init(host: UIViewControllerConvertable,
+                sourceType: UIImagePickerController.SourceType = .photoLibrary,
+                allowsEditing: Bool = false,
+                completion: @escaping (Result)->Void = {_ in }) throws {
+        self.host = host
         self.pickerViewController = UIImagePickerController()
         self.completion = completion
         super.init()
         guard UIImagePickerController.isSourceTypeAvailable(sourceType) else { throw UIError.imageSourceTypeNotAvailable }
+        self.pickerViewController.allowsEditing = allowsEditing
         self.pickerViewController.sourceType = sourceType
         self.pickerViewController.delegate = self
     }
@@ -51,5 +55,13 @@ public class ImagePicker: NSObject, UIImagePickerControllerDelegate, UINavigatio
     }
     
 }
+public extension Dictionary where Key == UIImagePickerController.InfoKey {
+    
+    var originalImage: UIImage? { self[.originalImage] as? UIImage }
 
+    var editedImage: UIImage? { self[.editedImage] as? UIImage }
+    
+    var cropRect: CGRect? { self[.cropRect] as? CGRect }
+ 
+}
 #endif

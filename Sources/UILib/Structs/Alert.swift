@@ -23,11 +23,20 @@ public struct Alert {
 
         }
         
-        public let title: String
+        public var title: String
         
         public var style: Style
         
-        public let block: ()->Void = { }
+        public var block: ()->Void
+        
+        public init(
+            title: String,
+            style: Style = .default,
+            block: @escaping ()->Void = {}) {
+            self.title = title
+            self.style = style
+            self.block = block
+        }
         
     }
     
