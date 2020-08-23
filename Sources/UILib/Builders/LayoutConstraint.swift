@@ -134,6 +134,13 @@ public enum LayoutStrategy: LayoutConstraintConvertable {
         .equal(.bottom, view, constant: -offset)
     }
     
+    public static func equalCenter(_ view: UIView? = nil, offset: (CGFloat, CGFloat) = (0, 0)) -> LayoutStrategy {
+        .strategies([
+            .equal(.centerX, view, constant: offset.0),
+            .equal(.centerY, view, constant: offset.1)
+        ])
+    }
+    
     public func toLayoutConstraints(with firstItem: UIView) -> [NSLayoutConstraint] {
         switch self {
         case .constraint(let constraint, let relation, let secondAttribute, let multiplay, let constant, let priority):
@@ -173,6 +180,10 @@ public extension UIView {
     }
     
     func makeLayout(_ strategies: [LayoutStrategy]) {
+        makeLayout(.strategies(strategies))
+    }
+    
+    func makeLayout(_ strategies: LayoutStrategy...) {
         makeLayout(.strategies(strategies))
     }
     
