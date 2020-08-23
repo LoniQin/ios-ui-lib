@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-public protocol UIViewControllerConvertable {
+public protocol UIViewControllerConvertable: NSObjectProtocol {
     
     func toViewController() -> UIViewController
     

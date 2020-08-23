@@ -46,7 +46,7 @@ public struct Alert {
     
     public var actions: [Action]
     
-    public var host: UIViewControllerConvertable
+    public weak var host: UIViewControllerConvertable?
     
     public init(
         host: UIViewControllerConvertable,
@@ -66,7 +66,7 @@ public struct Alert {
                 action.block()
             }))
         }
-        host.toViewController().present(alert, animated: true, completion: nil)
+        host?.toViewController().present(alert, animated: true, completion: nil)
     }
     
 }
