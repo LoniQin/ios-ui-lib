@@ -1,70 +1,12 @@
 //
-//  LayoutConstraint.swift
+//  LayoutStrategy.swift
 //  
 //
-//  Created by lonnie on 2020/1/1.
+//  Created by lonnie on 2020/9/4.
 //
 #if canImport(UIKit)
 
 import UIKit
-
-public protocol LayoutConstraintConvertable {
-    func toLayoutConstraints(with firstItem: UIView) -> [NSLayoutConstraint]
-}
-
-public struct LayoutConstraint: LayoutConstraintConvertable {
-    
-    public var attribute: NSLayoutConstraint.Attribute
-    
-    var secondItem: UIView? = nil
-    
-    public var secondAttribute: NSLayoutConstraint.Attribute
-       
-    public var multiplay: CGFloat
-       
-    public var constant: CGFloat
-       
-    public var relation: NSLayoutConstraint.Relation
-       
-    public var priority: UILayoutPriority
-    
-    public var relateToSuperView = false
-       
-    public init(
-        attribute: NSLayoutConstraint.Attribute,
-        relation: NSLayoutConstraint.Relation = .equal,
-        secondItem: UIView? = nil,
-        secondAttribute: NSLayoutConstraint.Attribute? = nil,
-        multiplay: CGFloat = 1.0,
-        constant: CGFloat = 0.0,
-        priority: UILayoutPriority = .required,
-        relateToSuperView: Bool = true
-    ) {
-        self.attribute = attribute
-        self.secondItem = secondItem
-        self.secondAttribute = secondAttribute ?? attribute
-        self.relation = relation
-        self.multiplay = multiplay
-        self.constant = constant
-        self.priority = priority
-        self.relateToSuperView = relateToSuperView
-    }
-       
-    public func toLayoutConstraints(with firstItem: UIView) -> [NSLayoutConstraint] {
-        [
-            NSLayoutConstraint(
-                item: firstItem,
-                attribute: attribute,
-                relatedBy: relation,
-                toItem: (secondItem == nil && relateToSuperView) ? firstItem.superview : secondItem,
-                attribute: secondAttribute,
-                multiplier: multiplay,
-                constant: constant
-            )
-        ]
-    }
-
-}
 
 public enum LayoutStrategy: LayoutConstraintConvertable {
     
@@ -165,29 +107,4 @@ public enum LayoutStrategy: LayoutConstraintConvertable {
     
 }
 
-public extension UIView {
-    
-    func makeLayout(_ strategy: LayoutStrategy) {
-        if translatesAutoresizingMaskIntoConstraints {
-            translatesAutoresizingMaskIntoConstraints.toggle()
-        }
-        let constraints = strategy.toLayoutConstraints(with: self)
-        if superview == nil {
-            addConstraints(constraints)
-        } else {
-            superview?.addConstraints(constraints)
-        }
-    }
-    
-    func makeLayout(_ strategies: [LayoutStrategy]) {
-        makeLayout(.strategies(strategies))
-    }
-    
-    func makeLayout(_ strategies: LayoutStrategy...) {
-        makeLayout(.strategies(strategies))
-    }
-    
-}
-
 #endif
-
