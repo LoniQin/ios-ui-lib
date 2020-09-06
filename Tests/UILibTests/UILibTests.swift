@@ -95,6 +95,12 @@ final class UILibTests: XCTestCase {
         let cell: CollectonViewCell = collectionView.dequeueCell(.init())
         print(cell)
     }
+    
+    func testTableViewController() {
+        let controller = TableViewController()
+        XCTAssert(controller.handlers.count == 1)
+    }
+    
     #endif
     
 
