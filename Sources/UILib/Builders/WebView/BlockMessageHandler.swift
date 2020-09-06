@@ -5,8 +5,10 @@
 //  Created by lonnie on 2020/9/6.
 //
 #if canImport(WebKit)
+
 import Foundation
 import WebKit
+
 public class BlockMessageHandler: NSObject, WKScriptMessageHandler {
     
     var block: (WKScriptMessage) -> Void

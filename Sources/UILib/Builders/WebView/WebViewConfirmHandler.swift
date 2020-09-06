@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 public struct WebViewConfirmHandler {
     
     public var confirm: (String)->Void

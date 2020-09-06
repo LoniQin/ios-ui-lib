@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 public struct WebViewPromptHandler {
     
     public var prompt: (String, String)->Void
