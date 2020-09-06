@@ -7,7 +7,6 @@
 #if canImport(UIKit)
 
 import UIKit
-import Foundation
 
 public protocol UIViewControllerConvertable: NSObjectProtocol {
     

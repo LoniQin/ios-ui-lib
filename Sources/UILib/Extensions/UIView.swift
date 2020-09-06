@@ -1,9 +1,8 @@
 //
 //  UIView.swift
-//  CryptorDemo
 //
-//  Created by gzuser on 8/20/20.
-//  Copyright © 2020 com.lonnie.demos. All rights reserved.
+//
+//  Created by lonnie on 2020/8/22.
 //
 #if canImport(UIKit)
 
