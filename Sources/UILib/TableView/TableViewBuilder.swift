@@ -10,7 +10,7 @@ import FoundationLib
 import Foundation
 class TableViewBuilder: NSObject, UITableViewDelegate, UITableViewDataSource {
  
-    public struct Section {
+    public struct Section: Buildable {
         
         public var rows = [Row]()
         
@@ -24,7 +24,7 @@ class TableViewBuilder: NSObject, UITableViewDelegate, UITableViewDataSource {
         
     }
     
-    public struct Row {
+    public struct Row: Buildable {
         
         public var cell: () -> UITableViewCell
         
@@ -46,11 +46,30 @@ class TableViewBuilder: NSObject, UITableViewDelegate, UITableViewDataSource {
     
     public var sections = [Section]()
 
+    
+    /// Init method
+    /// - Parameter tableView: TableView
     public init(_ tableView: UITableView) {
         self.tableView = tableView
         super.init()
         self.tableView?.delegate = self
         self.tableView?.dataSource = self
+    }
+    
+    /// Append section
+    /// - Parameter section: TableView Section
+    public func append(_ section: Section) {
+        sections.append(section)
+    }
+    
+    
+    /// Append row
+    /// - Parameter row: TableView Sectoin
+    public func append(_ row: Row) {
+        if sections.isEmpty {
+            sections.append(Section())
+        }
+        sections[sections.count - 1].rows.append(row)
     }
     
     func row(at indexPath: IndexPath) -> Row {
