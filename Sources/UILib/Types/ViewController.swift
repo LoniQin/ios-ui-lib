@@ -10,6 +10,10 @@ public class ViewController: UIViewController {
     
     public struct Handler {
         
+        enum Key: String {
+            case animated
+        }
+        
         enum Event {
             
             case load
@@ -32,13 +36,15 @@ public class ViewController: UIViewController {
         
         var event: Event
         
-        var block: (ViewController, [String: Any])->Void
+        var block: (ViewController, [Key: Any])->Void
         
-        init(event: Event, block: @escaping (ViewController, [String: Any])->Void) {
+        init(event: Event, block: @escaping (ViewController, [Key: Any])->Void) {
             self.event = event
             self.block = block
         }
     }
+    
+    public var parameters: [String: Any] = [:]
     
     public var handlers: [Handler] = []
     
@@ -58,22 +64,22 @@ public class ViewController: UIViewController {
     
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        runHandlers(event: .willAppear)
+        runHandlers(event: .willAppear, params: [.animated: animated])
     }
     
     public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        runHandlers(event: .didAppear)
+        runHandlers(event: .didAppear, params: [.animated: animated])
     }
     
     public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        runHandlers(event: .willDisappear)
+        runHandlers(event: .willDisappear, params: [.animated: animated])
     }
     
     public override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        runHandlers(event: .didDisappear)
+        runHandlers(event: .didDisappear, params: [.animated: animated])
     }
     
     public override func viewWillLayoutSubviews() {
@@ -86,7 +92,7 @@ public class ViewController: UIViewController {
         runHandlers(event: .didLayoutSubviews)
     }
     
-    func runHandlers(event: Handler.Event, params: [String: Any] = [:]) {
+    func runHandlers(event: Handler.Event, params: [Handler.Key: Any] = [:]) {
         handlers.filter { $0.event == event }.forEach { [unowned self] in
             $0.block(self, params)
         }
