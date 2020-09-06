@@ -8,7 +8,7 @@ An iOS UI Library which is easy to use.
   - [x] [UICollectionView](https://github.com/LoniQin/ios-ui-lib/blob/master/Sources/UILib/Extensions/UICollectionView%2BExtension.swift)
   - [x] [UITableView](https://github.com/LoniQin/ios-ui-lib/blob/master/Sources/UILib/Extensions/UITableView%2BExtension.swift)
   - [x] [UIColor](https://github.com/LoniQin/ios-ui-lib/blob/master/Sources/UILib/Extensions/UIColor%2BExtension.swift)
-  - [ ] UIImage
+  - [x] UIImage
   - [ ] UIButton
   - [ ] UITextField
   - [ ] UIBarButtonItem
@@ -20,6 +20,7 @@ An iOS UI Library which is easy to use.
   - [x] [Router](https://github.com/LoniQin/ios-ui-lib/blob/master/Sources/UILib/Structs/Router.swift)
   - [x] [ImagePicker](https://github.com/LoniQin/ios-ui-lib/blob/master/Sources/UILib/Structs/ImagePicker.swift)
   - [x] [Alert](https://github.com/LoniQin/ios-ui-lib/blob/master/Sources/UILib/Structs/Alert.swift)
-  - [x] AutoLayout
-  - [ ] WKWebView
+- [x] AutoLayout
+- [x] TableViewBuilder
+- [ ] WKWebViewBuilder
 
