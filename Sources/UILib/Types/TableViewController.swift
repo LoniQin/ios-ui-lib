@@ -26,12 +26,9 @@ public class TableViewController: ViewController {
     }
     
     func setup() {
-        add(.init(event: .didLoad, block: { [weak self] (viewController, params) in
-            guard let self = self else { return }
+        add(.init(event: .didLoad, block: { [unowned self] (viewController, params) in
             viewController.view.addSubview(self.tableView)
-            self.tableView.builder.build {
-                $0.makeLayout(.equalToSuperView())
-            }
+            self.tableView.makeLayout(.equalToSuperView())
         }))
     }
 }

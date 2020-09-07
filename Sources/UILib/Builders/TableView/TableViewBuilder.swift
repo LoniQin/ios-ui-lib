@@ -8,9 +8,13 @@
 import UIKit
 import FoundationLib
 import Foundation
-class TableViewBuilder: NSObject, UITableViewDelegate, UITableViewDataSource {
+extension UITableView: Buildable {
+    public typealias BuilderClass = TableViewBuilder
+    
+}
+public class TableViewBuilder: Builder<UITableView>, UITableViewDelegate, UITableViewDataSource {
  
-    public struct Section: Buildable {
+    public struct Section {
         
         public var rows = [Row]()
         
@@ -24,7 +28,7 @@ class TableViewBuilder: NSObject, UITableViewDelegate, UITableViewDataSource {
         
     }
     
-    public struct Row: Buildable {
+    public struct Row {
         
         public var cell: () -> UITableViewCell
         
@@ -49,9 +53,8 @@ class TableViewBuilder: NSObject, UITableViewDelegate, UITableViewDataSource {
     
     /// Init method
     /// - Parameter tableView: TableView
-    public init(_ tableView: UITableView) {
-        self.tableView = tableView
-        super.init()
+    public required init(_ tableView: UITableView) {
+        super.init(tableView)
         self.tableView?.delegate = self
         self.tableView?.dataSource = self
     }
@@ -76,57 +79,57 @@ class TableViewBuilder: NSObject, UITableViewDelegate, UITableViewDataSource {
         sections[indexPath.section].rows[indexPath.row]
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+    public func numberOfSections(in tableView: UITableView) -> Int {
         sections.count
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         sections[section].header()
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         sections[section].headerHeight()
     }
     
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         sections[section].footer()
     }
     
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         sections[section].footerHeight()
     }
     
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         sections[section].rows.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         row(at: indexPath).cell()
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         row(at: indexPath).height()
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         row(at: indexPath).didSelect()
     }
     
-    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    public func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         row(at: indexPath).didEndDisplay()
     }
     
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+    public func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         row(at: indexPath).didDeselect()
     }
     
-    func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
+    public func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
         row(at: indexPath).didHighlight()
     }
     
-    func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
+    public func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
         row(at: indexPath).didUnHighlight()
     }
     

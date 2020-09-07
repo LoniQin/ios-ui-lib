@@ -8,49 +8,56 @@
 import Foundation
 #if canImport(XCTest)
 import XCTest
-
-public struct Assert {
+public protocol AssertProtocol {
     
-    public func equal<T: Equatable>(_ lhs: T, _ rhs: T) {
+}
+
+public extension AssertProtocol {
+    func equal<T: Equatable>(_ lhs: T, _ rhs: T) {
         XCTAssertEqual(lhs, rhs)
     }
     
-    public func notEqual<T: Equatable>(_ lhs: T, _ rhs: T) {
+    func notEqual<T: Equatable>(_ lhs: T, _ rhs: T) {
         XCTAssertNotEqual(lhs, rhs)
     }
     
-    public func greaterThan<T: Comparable>(_ lhs: T, _ rhs: T) {
+    func greaterThan<T: Comparable>(_ lhs: T, _ rhs: T) {
         XCTAssertGreaterThan(lhs, rhs)
     }
     
-    public func greaterThanOrEqual<T: Comparable>(_ lhs: T, _ rhs: T) {
+    func greaterThanOrEqual<T: Comparable>(_ lhs: T, _ rhs: T) {
         XCTAssertGreaterThanOrEqual(lhs, rhs)
     }
     
-    public func lessThan<T: Comparable>(_ lhs: T, _ rhs: T) {
+    func lessThan<T: Comparable>(_ lhs: T, _ rhs: T) {
         XCTAssertLessThan(lhs, rhs)
     }
     
-    public func lessThanOrEqual<T: Comparable>(_ lhs: T, _ rhs: T) {
+    func lessThanOrEqual<T: Comparable>(_ lhs: T, _ rhs: T) {
         XCTAssertLessThanOrEqual(lhs, rhs)
     }
     
-    public func `true`(_ expression: Bool) {
+    func `true`(_ expression: Bool) {
         XCTAssertTrue(expression)
     }
     
-    public func `false`(_ expression: Bool) {
+    func `false`(_ expression: Bool) {
         XCTAssertFalse(expression)
     }
     
-    public func notNil(_ expression: Any?, message: String = "") {
+    func notNil(_ expression: Any?, message: String = "") {
         XCTAssertNotNil(expression, message)
     }
     
 }
+public struct Assert: AssertProtocol {
+    
+    
+    
+}
 
 
-public struct EquatableAssert<T: Equatable> {
+public struct EquatableAssert<T: Equatable>: AssertProtocol {
     
     public let value: T
     
@@ -62,6 +69,10 @@ public struct EquatableAssert<T: Equatable> {
     
     public func notEqual(_ another: T) {
         assert.notEqual(value, another)
+    }
+    
+    public func notNil() {
+        assert.notNil(value)
     }
     
 }
