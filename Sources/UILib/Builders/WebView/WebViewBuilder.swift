@@ -10,9 +10,11 @@ import Foundation
 import FoundationLib
 import WebKit
 
-public class WebViewBuilder: NSObject, WKNavigationDelegate, WKUIDelegate {
-    
-    public var webView: WKWebView?
+extension WKWebView: Buildable {
+    public typealias BuilderClass = WebViewBuilder
+}
+
+public class WebViewBuilder: Builder<WKWebView>, WKNavigationDelegate, WKUIDelegate {
     
     public var alertHandler: WebViewAlertHandler?
     
@@ -20,15 +22,14 @@ public class WebViewBuilder: NSObject, WKNavigationDelegate, WKUIDelegate {
     
     public var promptHanlder: WebViewPromptHandler?
     
-    public init(_ webView: WKWebView) {
-        self.webView = webView
-        super.init()
-        self.webView?.navigationDelegate = self
-        self.webView?.uiDelegate = self
+    public required init(_ webView: WKWebView) {
+        super.init(webView)
+        self.value?.navigationDelegate = self
+        self.value?.uiDelegate = self
     }
     
     public func add(_ messageHandler: WKScriptMessageHandler, name: String) {
-        webView?.configuration.userContentController.add(messageHandler, name: name)
+        value?.configuration.userContentController.add(messageHandler, name: name)
     }
     
     public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
@@ -59,7 +60,7 @@ public class WebViewBuilder: NSObject, WKNavigationDelegate, WKUIDelegate {
     }
     
     deinit {
-        webView?.configuration.userContentController.removeAllUserScripts()
+        value?.configuration.userContentController.removeAllUserScripts()
     }
     
 }

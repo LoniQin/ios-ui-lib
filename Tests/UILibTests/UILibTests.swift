@@ -106,7 +106,7 @@ final class UILibTests: XCTestCase {
         tableView.builder.append(.init(cell: { UITableViewCell() }))
         tableView.builder.sections.count.assert.equal(1)
         tableView.builder.sections.first?.rows.count.assert.equal(1)
-        tableView.builder.tableView?.assert.equal(tableView)
+        tableView.builder.value?.assert.equal(tableView)
         tableView.reloadData()
         tableView.numberOfSections.assert.equal(1)
         tableView.cellForRow(at: .init(row: 0, section: 0)).assert.notNil()

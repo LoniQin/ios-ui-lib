@@ -5,9 +5,10 @@
 //  Created by lonnie on 2020/9/6.
 //
 #if canImport(UIKit)
+
 import UIKit
 import FoundationLib
-import Foundation
+
 extension UITableView: Buildable {
     public typealias BuilderClass = TableViewBuilder
     
@@ -46,8 +47,6 @@ public class TableViewBuilder: Builder<UITableView>, UITableViewDelegate, UITabl
         
     }
     
-    weak var tableView: UITableView?
-    
     public var sections = [Section]()
 
     
@@ -55,8 +54,8 @@ public class TableViewBuilder: Builder<UITableView>, UITableViewDelegate, UITabl
     /// - Parameter tableView: TableView
     public required init(_ tableView: UITableView) {
         super.init(tableView)
-        self.tableView?.delegate = self
-        self.tableView?.dataSource = self
+        self.value?.delegate = self
+        self.value?.dataSource = self
     }
     
     /// Append section
