@@ -14,8 +14,18 @@ extension Builder where T: UIView {
         return self
     }
     
-    func backgroundColor(_ color: UIColor) -> Self {
-        value?.backgroundColor = color
+    func backgroundColor(_ _backgroundColor: UIColor) -> Self {
+        value?.backgroundColor = _backgroundColor
+        return self
+    }
+    
+    func alpha(_ _alpha: CGFloat) -> Self {
+        value?.alpha = _alpha
+        return self
+    }
+    
+    func hidden(_ _isHidden: Bool) -> Self {
+        value?.isHidden = _isHidden
         return self
     }
     
