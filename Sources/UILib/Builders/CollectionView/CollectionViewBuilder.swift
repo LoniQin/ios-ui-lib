@@ -21,15 +21,25 @@ public class CollectionViewBuilder: Builder<UICollectionView> {
         
     }
     
+    typealias GetSizeBlock = (inout CGSize)->Void
+    
+    enum ParamKey: String {
+        
+        case indexPath
+        
+        case itemSize
+        
+    }
+    
     public struct Item {
         
         public var cell: ()->UICollectionViewCell
         
         public var handlers: [Handler]
         
-        func runHandlers(_ event: Handler.Event) {
-            handlers.filter({$0.event == event}).forEach { (handler) in
-                handler.block()
+        func runHandlers(_ event: Handler.Event, _ params: inout [ParamKey: Any]) {
+            handlers.filter({$0.event == event}).forEach {
+                $0.block(params)
             }
         }
         
@@ -51,7 +61,7 @@ public class CollectionViewBuilder: Builder<UICollectionView> {
         
         let event: Event
         
-        let block: ()->Void
+        let block: ([ParamKey: Any])->Void
     }
     
     public var sections = [Section]()
@@ -88,19 +98,29 @@ extension CollectionViewBuilder: UICollectionViewDelegateFlowLayout, UICollectio
     }
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        item(at: indexPath).runHandlers(.didSelect)
+        var params: [ParamKey: Any] = [.indexPath: indexPath]
+        item(at: indexPath).runHandlers(.didSelect, &params)
     }
     
     public func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        item(at: indexPath).runHandlers(.didDeselect)
+        var params: [ParamKey: Any] = [.indexPath: indexPath]
+        item(at: indexPath).runHandlers(.didDeselect, &params)
     }
     
     public func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-        item(at: indexPath).runHandlers(.didHighlight)
+        var params: [ParamKey: Any] = [.indexPath: indexPath]
+        item(at: indexPath).runHandlers(.didHighlight, &params)
     }
     
     public func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
-        item(at: indexPath).runHandlers(.didHighlight)
+        var params: [ParamKey: Any] = [.indexPath: indexPath]
+        item(at: indexPath).runHandlers(.didHighlight, &params)
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        var params: [ParamKey: Any] = [.indexPath: indexPath]
+        item(at: indexPath).runHandlers(.didHighlight, &params)
+        return (params[.itemSize] as? CGSize) ?? .zero
     }
     
 }

@@ -50,11 +50,7 @@ public extension AssertProtocol {
     }
     
 }
-public struct Assert: AssertProtocol {
-    
-    
-    
-}
+public struct Assert: AssertProtocol {}
 
 
 public struct EquatableAssert<T: Equatable>: AssertProtocol {
