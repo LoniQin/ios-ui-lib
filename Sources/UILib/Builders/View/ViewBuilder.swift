@@ -1,42 +1,54 @@
 //
-//  File.swift
+//  ViewBuilder.swift
 //  
 //
 //  Created by lonnie on 2020/9/9.
 //
 #if canImport(UIKit)
+
 import UIKit
 import FoundationLib
+
 extension Builder where T: UIView {
     
-    func layout(_ layouts: LayoutStrategy...) -> Self {
-        value?.makeLayout(layouts)
+    public struct Border {
+        
+        var color: UIColor
+        
+        var width: CGFloat = 1
+        
+        var cornerRaidus: CGFloat = 0
+        
+        var maskToBounds: Bool = true
+    }
+    
+    public func subview(_ view: UIView, _ strateges: LayoutStrategy...) -> Self {
+        value?.addSubview(view)
+        view.makeLayout(strateges)
         return self
     }
     
-    func backgroundColor(_ _backgroundColor: UIColor) -> Self {
+    public func layout(_ strateges: LayoutStrategy...) -> Self {
+        value?.makeLayout(strateges)
+        return self
+    }
+    
+    public func backgroundColor(_ _backgroundColor: UIColor) -> Self {
         value?.backgroundColor = _backgroundColor
         return self
     }
     
-    func alpha(_ _alpha: CGFloat) -> Self {
+    public func alpha(_ _alpha: CGFloat) -> Self {
         value?.alpha = _alpha
         return self
     }
     
-    func hidden(_ _isHidden: Bool) -> Self {
+    public func hidden(_ _isHidden: Bool) -> Self {
         value?.isHidden = _isHidden
         return self
     }
     
-    struct Border {
-        var color: UIColor
-        var width: CGFloat
-        var cornerRaidus: CGFloat
-        var maskToBounds: Bool
-    }
-    
-    func border(_ border: Border) -> Self {
+    public func border(_ border: Border) -> Self {
         value?.layer.borderWidth = border.width
         value?.layer.borderColor = border.color.cgColor
         value?.layer.cornerRadius = border.cornerRaidus
