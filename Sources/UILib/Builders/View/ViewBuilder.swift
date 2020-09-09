@@ -29,6 +29,21 @@ extension Builder where T: UIView {
         return self
     }
     
+    struct Border {
+        var color: UIColor
+        var width: CGFloat
+        var cornerRaidus: CGFloat
+        var maskToBounds: Bool
+    }
+    
+    func border(_ border: Border) -> Self {
+        value?.layer.borderWidth = border.width
+        value?.layer.borderColor = border.color.cgColor
+        value?.layer.cornerRadius = border.cornerRaidus
+        value?.layer.masksToBounds = border.maskToBounds
+        return self
+    }
+    
 }
 
 #endif
