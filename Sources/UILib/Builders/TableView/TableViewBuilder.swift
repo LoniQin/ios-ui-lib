@@ -35,16 +35,41 @@ public class TableViewBuilder: Builder<UITableView>, UITableViewDelegate, UITabl
         
         public var height: () -> CGFloat = { UITableView.automaticDimension }
         
-        public var didSelect: ()->Void = {}
+        public var handlers: [Handler] = []
+
+        func runHandlers(_ event: Handler.Event, _ params: inout [ParamKey: Any]) {
+            handlers.filter({$0.event == event}).forEach {
+                $0.block(&params)
+            }
+        }
         
-        public var didDeselect: ()->Void = {}
+    }
+    
+    enum ParamKey: String {
         
-        public var didEndDisplay: ()->Void = {}
+        case indexPath
         
-        public var didHighlight: ()->Void = {}
+    }
+    
+    public struct Handler {
         
-        public var didUnHighlight: ()->Void = {}
+        enum Event {
+            
+            case didSelect
+            
+            case didDeselect
+            
+            case didEndDisplay
+            
+            case didHighlight
+            
+            case didUnhighlight
+            
+        }
         
+        let event: Event
+        
+        let block: (inout [ParamKey: Any])->Void
     }
     
     public var sections = [Section]()
@@ -113,23 +138,28 @@ public class TableViewBuilder: Builder<UITableView>, UITableViewDelegate, UITabl
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        row(at: indexPath).didSelect()
+        var params: [ParamKey: Any] = [.indexPath: indexPath]
+        row(at: indexPath).runHandlers(.didSelect, &params)
     }
     
     public func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        row(at: indexPath).didEndDisplay()
+        var params: [ParamKey: Any] = [.indexPath: indexPath]
+        row(at: indexPath).runHandlers(.didEndDisplay, &params)
     }
     
     public func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        row(at: indexPath).didDeselect()
+        var params: [ParamKey: Any] = [.indexPath: indexPath]
+        row(at: indexPath).runHandlers(.didDeselect, &params)
     }
     
     public func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
-        row(at: indexPath).didHighlight()
+        var params: [ParamKey: Any] = [.indexPath: indexPath]
+        row(at: indexPath).runHandlers(.didHighlight, &params)
     }
     
     public func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
-        row(at: indexPath).didUnHighlight()
+        var params: [ParamKey: Any] = [.indexPath: indexPath]
+        row(at: indexPath).runHandlers(.didUnhighlight, &params)
     }
     
 }

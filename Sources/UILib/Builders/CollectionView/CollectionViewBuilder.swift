@@ -21,27 +21,33 @@ public class CollectionViewBuilder: Builder<UICollectionView> {
         
     }
     
-    typealias GetSizeBlock = (inout CGSize)->Void
+    public struct Item {
+        
+        public var cell: ()->UICollectionViewCell
+        
+        public var itemSize: ()->CGSize
+        
+        public var handlers: [Handler] = []
+        
+        public var canMove: ()->Bool = { false }
+        
+        public var shouldFocus: ()->Bool = { false }
+        
+        public var canSelect: ()->Bool = { true }
+        
+        func runHandlers(_ event: Handler.Event, _ params: inout [ParamKey: Any]) {
+            handlers.filter({$0.event == event}).forEach {
+                $0.block(&params)
+            }
+        }
+        
+    }
     
     enum ParamKey: String {
         
         case indexPath
         
         case itemSize
-        
-    }
-    
-    public struct Item {
-        
-        public var cell: ()->UICollectionViewCell
-        
-        public var handlers: [Handler]
-        
-        func runHandlers(_ event: Handler.Event, _ params: inout [ParamKey: Any]) {
-            handlers.filter({$0.event == event}).forEach {
-                $0.block(params)
-            }
-        }
         
     }
     
@@ -61,7 +67,7 @@ public class CollectionViewBuilder: Builder<UICollectionView> {
         
         let event: Event
         
-        let block: ([ParamKey: Any])->Void
+        let block: (inout [ParamKey: Any])->Void
     }
     
     public var sections = [Section]()
@@ -118,9 +124,19 @@ extension CollectionViewBuilder: UICollectionViewDelegateFlowLayout, UICollectio
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        var params: [ParamKey: Any] = [.indexPath: indexPath]
-        item(at: indexPath).runHandlers(.didHighlight, &params)
-        return (params[.itemSize] as? CGSize) ?? .zero
+        item(at: indexPath).itemSize()
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
+        item(at: indexPath).canMove()
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, canFocusItemAt indexPath: IndexPath) -> Bool {
+        item(at: indexPath).shouldFocus()
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        item(at: indexPath).canSelect()
     }
     
 }
