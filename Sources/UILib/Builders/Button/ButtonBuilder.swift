@@ -14,7 +14,7 @@ extension UIButton: Buildable {
 }
 public class ButtonBuilder: Builder<UIButton> {
     
-    public func click(_ handler: @escaping (T)->Void) -> Self {
+    public func touchUpInside(_ handler: @escaping (T) -> Void) -> Self {
         value?.onTouchUpInside(block: { control in
             if let control = control as? T {
                 handler(control)
