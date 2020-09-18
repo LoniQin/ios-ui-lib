@@ -15,11 +15,16 @@ public extension UICollectionView {
         dequeueReusableCell(withReuseIdentifier: T.classForCoder().description(), for: indexPath) as! T
     }
     
-    func register(_ cls: AnyClass) {
+
+}
+
+extension UICollectionView: ListView {
+    
+    public func register(_ cls: AnyClass) {
         register(cls, forCellWithReuseIdentifier: cls.description())
     }
     
-    func register(_ nib: UINib) {
+    public func register(_ nib: UINib) {
         if let cell = nib.instantiate(withOwner: nil, options: nil).first as? UICollectionViewCell {
             register(nib, forCellWithReuseIdentifier: cell.classForCoder.description())
         }

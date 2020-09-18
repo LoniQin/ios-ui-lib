@@ -7,6 +7,7 @@
 #if canImport(UIKit)
 
 import UIKit
+import FoundationLib
 
 fileprivate var tapKey: String = "tapKey"
 
@@ -33,6 +34,10 @@ public extension UIView {
         views.forEach {
             addSubview($0)
         }
+    }
+    
+    func addSubviews(@ArrayBuilder _ builder: () -> [UIView]) {
+        addSubviews(builder())
     }
     
     func removeSubviews(_ views: [UIView]) {

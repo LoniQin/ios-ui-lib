@@ -88,6 +88,9 @@ public class TableViewBuilder: Builder<UITableView>, UITableViewDelegate, UITabl
         sections.append(section)
     }
     
+    public func append(@ArrayBuilder _ builder: ()->[Section]) {
+        sections.append(contentsOf: builder())
+    }
     
     /// Append row
     /// - Parameter row: TableView Sectoin
@@ -96,6 +99,12 @@ public class TableViewBuilder: Builder<UITableView>, UITableViewDelegate, UITabl
             sections.append(Section())
         }
         sections[sections.count - 1].rows.append(row)
+    }
+    
+    public func append(@ArrayBuilder _ builder: ()->[Row]) {
+        for row in builder() {
+            append(row)
+        }
     }
     
     func row(at indexPath: IndexPath) -> Row {

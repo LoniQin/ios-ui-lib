@@ -13,12 +13,16 @@ public extension UITableView {
         dequeueReusableCell(withIdentifier: T.classForCoder().description()) as! T
     }
     
-    func register<T: UITableViewCell>(_ cell: T.Type) {
-        register(T.self, forCellReuseIdentifier: T.classForCoder().description())
+}
+
+extension UITableView: ListView {
+    
+    public func register(_ cls: AnyClass) {
+        register(cls, forCellReuseIdentifier: cls.description())
     }
     
-    func register(_ nib: UINib) {
-        if let cell = nib.instantiate(withOwner: nil, options: nil).first as? UITableViewCell {
+    public func register(_ nib: UINib) {
+        if let cell = nib.instantiate(withOwner: nil, options: nil).first as? NSObject {
             register(nib, forCellReuseIdentifier: cell.classForCoder.description())
         }
     }

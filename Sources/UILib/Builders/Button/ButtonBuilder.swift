@@ -15,12 +15,13 @@ extension UIButton: Buildable {
 public class ButtonBuilder: Builder<UIButton> {
     
     public func touchUpInside(_ handler: @escaping (T) -> Void) -> Self {
-        value?.onTouchUpInside(block: { control in
-            if let control = control as? T {
-                handler(control)
+        build {
+            $0.onTouchUpInside { (control) in
+                if let control = control as? T {
+                    handler(control)
+                }
             }
-        })
-        return self
+        }
     }
     
 }
