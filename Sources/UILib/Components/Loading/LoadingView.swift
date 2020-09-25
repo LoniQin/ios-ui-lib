@@ -52,7 +52,7 @@ class LoadingView: UIView {
     }
     
     func show() {
-        loadingLayer.add(CABasicAnimation(keyPath: "transform.rotation.z", fromValue: 0, toValue: CGFloat.pi * 2, duration: 0.5, repeatCount: .greatestFiniteMagnitude), forKey: "animation")
+        loadingLayer.add(CABasicAnimation(keyPath: AnimationKey.transform.rotation.z, fromValue: 0, toValue: CGFloat.pi * 2, duration: 0.5, repeatCount: .greatestFiniteMagnitude), forKey: "animation")
         isHidden = false
     }
     
