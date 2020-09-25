@@ -5,7 +5,7 @@
 //  Created by lonnie on 2020/9/25.
 //
 #if canImport(UIKit)
-import CoreGraphics
+import UIKit
 public extension CABasicAnimation {
     
     convenience init(
