@@ -112,6 +112,44 @@ final class UILibTests: XCTestCase {
         tableView.cellForRow(at: .init(row: 0, section: 0)).assert.notNil()
     }
     
+    func testAnimationKey() {
+        AnimationKey.anchorPoint.rawValue.assert.equal("anchorPoint")
+        AnimationKey.backgroundColor.rawValue.assert.equal("backgroundColor")
+        AnimationKey.backgroundFilters.rawValue.assert.equal("backgroundFilters")
+        AnimationKey.borderColor.rawValue.assert.equal("borderColor")
+        AnimationKey.borderWidth.rawValue.assert.equal("borderWidth")
+        AnimationKey.bounds.rawValue.assert.equal("bounds")
+        AnimationKey.compositingFilter.rawValue.assert.equal("compositingFilter")
+        AnimationKey.contents.rawValue.assert.equal("contents")
+        AnimationKey.contentsRect.rawValue.assert.equal("contentsRect")
+        AnimationKey.cornerRadius.rawValue.assert.equal("cornerRadius")
+        AnimationKey.doubleSided.rawValue.assert.equal("doubleSided")
+        AnimationKey.filters.rawValue.assert.equal("filters")
+        AnimationKey.frame.rawValue.assert.equal("frame")
+        AnimationKey.hidden.rawValue.assert.equal("hidden")
+        AnimationKey.mask.rawValue.assert.equal("mask")
+        AnimationKey.masksToBounds.rawValue.assert.equal("masksToBounds")
+        AnimationKey.opacity.rawValue.assert.equal("opacity")
+        AnimationKey.position.rawValue.assert.equal("position")
+        AnimationKey.shadowColor.rawValue.assert.equal("shadowColor")
+        AnimationKey.shadowOffset.rawValue.assert.equal("shadowOffset")
+        AnimationKey.shadowOpacity.rawValue.assert.equal("shadowOpacity")
+        AnimationKey.shadowPath.rawValue.assert.equal("shadowPath")
+        AnimationKey.shadowRadius.rawValue.assert.equal("shadowRadius")
+        AnimationKey.sublayers.rawValue.assert.equal("sublayers")
+        AnimationKey.sublayerTransform.rawValue.assert.equal("sublayerTransform")
+        AnimationKey.zPosition.rawValue.assert.equal("zPosition")
+        AnimationKey.transform.scale.x.assert.equal("transform.scale.x")
+        AnimationKey.transform.scale.y.assert.equal("transform.scale.y")
+        AnimationKey.transform.scale.z.assert.equal("transform.scale.z")
+        AnimationKey.transform.transation.x.assert.equal("transform.translation.x")
+        AnimationKey.transform.transation.y.assert.equal("transform.translation.y")
+        AnimationKey.transform.transation.z.assert.equal("transform.translation.z")
+        AnimationKey.transform.rotation.x.assert.equal("transform.rotation.x")
+        AnimationKey.transform.rotation.y.assert.equal("transform.rotation.y")
+        AnimationKey.transform.rotation.z.assert.equal("transform.rotation.z")
+    }
+    
     #endif
     
 
