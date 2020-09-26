@@ -18,7 +18,7 @@ public class WebViewBuilder: Builder<WKWebView>, WKNavigationDelegate, WKUIDeleg
     
     public struct Handler {
         
-        enum Key: String {
+        public enum Key: String {
             
             case message
             
@@ -32,7 +32,7 @@ public class WebViewBuilder: Builder<WKWebView>, WKNavigationDelegate, WKUIDeleg
             
         }
         
-        enum Event {
+        public enum Event {
             
             case didCommitNavigation
             
@@ -50,9 +50,14 @@ public class WebViewBuilder: Builder<WKWebView>, WKNavigationDelegate, WKUIDeleg
             
         }
         
-        let event: Event
+        public let event: Event
         
-        let block: ([Key: Any])->Void
+        public let block: ([Key: Any])->Void
+        
+        public init(event: Event, block: @escaping ([Key: Any])->Void) {
+            self.event = event
+            self.block = block
+        }
     }
     
     var handlers: [Handler] = []
