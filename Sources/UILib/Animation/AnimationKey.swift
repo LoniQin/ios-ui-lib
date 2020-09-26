@@ -89,7 +89,7 @@ public enum AnimationKey: String, CaseIterable {
         
         public enum Scale: String {
             
-            public case scale
+            case scale
             
             public var x: String {
                 getDescription("x")
@@ -104,7 +104,8 @@ public enum AnimationKey: String, CaseIterable {
             }
             
             func getDescription(_ name: String) -> String {
-                "transform.scale.\(name)"
+                print("\(self)")
+                return "transform.scale.\(name)"
             }
         }
         
