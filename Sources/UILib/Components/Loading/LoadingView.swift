@@ -6,57 +6,66 @@
 //
 #if canImport(UIKit)
 import UIKit
-class LoadingView: UIView {
+import FoundationLib
+public class LoadingView: UIView {
     
     private var loadingLayer = CAShapeLayer()
     
-    class Style {
+    public class Style: KeyPathConfigurable {
         
-        var radius: CGFloat = 30
+        public var radius: CGFloat = 30
         
-        var ringColor: UIColor = .magenta
+        public var ringColor: UIColor = .magenta
         
-        var ringWidth: CGFloat = 2
+        public var startAngle: CGFloat = 0
         
-        static var `default`: Style {
+        public var endEngle: CGFloat = .pi * 4 / 3
+        
+        public var ringWidth: CGFloat = 5
+        
+        public var duration: TimeInterval = 0.5
+        
+        public static var `default`: Style {
             return Style()
         }
         
     }
     
-    var style: Style = Style.default
+    public var style: Style = Style.default
     
-    init(style: Style = .default, frame: CGRect = .zero) {
+    public init(style: Style = .default, frame: CGRect = .zero) {
         super.init(frame: frame)
+        self.style = style
         setupView()
         backgroundColor = .clear
     }
     
-    required init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupView()
     }
     
     func setupView() {
-        let path = UIBezierPath(arcCenter: CGPoint(x: style.radius, y: style.radius), radius: style.radius / 2, startAngle: 0, endAngle: .pi / 2, clockwise: true)
+        let path = UIBezierPath(arcCenter: CGPoint(x: style.radius, y: style.radius), radius: style.radius / 2, startAngle: style.startAngle, endAngle: style.endEngle, clockwise: true)
         loadingLayer.strokeColor = style.ringColor.cgColor
         loadingLayer.fillColor = UIColor.clear.cgColor
+        loadingLayer.lineCap = .round
         loadingLayer.lineWidth = style.ringWidth
         loadingLayer.frame.size = CGSize(width: style.radius * 2, height: style.radius * 2)
         loadingLayer.path = path.cgPath
         layer.addSublayer(loadingLayer)
     }
     
-    override var intrinsicContentSize: CGSize {
+    public override var intrinsicContentSize: CGSize {
         return CGSize(width: style.radius * 2, height: style.radius * 2)
     }
     
-    func show() {
-        loadingLayer.add(CABasicAnimation(keyPath: AnimationKey.transform.rotation.z, fromValue: 0, toValue: CGFloat.pi * 2, duration: 0.5, repeatCount: .greatestFiniteMagnitude), forKey: "animation")
+    public func show() {
+        loadingLayer.add(CABasicAnimation(keyPath: "transform.rotation.z", fromValue: 0, toValue: CGFloat.pi * 2, duration: style.duration, repeatCount: .greatestFiniteMagnitude), forKey: "animation")
         isHidden = false
     }
     
-    func hide() {
+    public func hide() {
         loadingLayer.removeAllAnimations()
         isHidden = true
     }
