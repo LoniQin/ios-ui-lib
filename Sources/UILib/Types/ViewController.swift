@@ -10,11 +10,11 @@ public class ViewController: UIViewController {
     
     public struct Handler {
         
-        enum Key: String {
+        public enum Key: String {
             case animated
         }
         
-        enum Event {
+        public enum Event {
             
             case load
             
@@ -34,11 +34,11 @@ public class ViewController: UIViewController {
             
         }
         
-        var event: Event
+        public var event: Event
         
-        var block: (ViewController, [Key: Any])->Void
+        public var block: (ViewController, [Key: Any])->Void
         
-        init(event: Event, block: @escaping (ViewController, [Key: Any])->Void) {
+        public init(event: Event, block: @escaping (ViewController, [Key: Any])->Void) {
             self.event = event
             self.block = block
         }
