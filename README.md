@@ -9,6 +9,7 @@ An iOS UI Library which is easy to use.
   * CollectionViewBuilder
   * TableViewBuilder
   * WebViewBuilder
+  * AppBuilder
 * UI Components
   * LoadingView
   
