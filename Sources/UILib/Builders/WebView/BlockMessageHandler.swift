@@ -11,7 +11,7 @@ import WebKit
 
 public class BlockMessageHandler: NSObject, WKScriptMessageHandler {
     
-    var block: (WKScriptMessage) -> Void
+    public var block: (WKScriptMessage) -> Void
     
     public init(_ block: @escaping (WKScriptMessage) -> Void) {
         self.block = block

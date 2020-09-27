@@ -27,6 +27,19 @@ public class TableViewBuilder: Builder<UITableView>, UITableViewDelegate, UITabl
         
         public var footerHeight: () -> CGFloat = { 0 }
         
+        public init(rows: [Row] = [],
+                    header: @escaping () -> UIView? = { nil },
+                    headerHeight: @escaping () -> CGFloat = { 0 },
+                    footer: @escaping () -> UIView? = { nil },
+                    footerHeight: @escaping () -> CGFloat = { 0 }) {
+            self.rows = rows
+            self.header = header
+            self.headerHeight = headerHeight
+            self.footer = footer
+            self.footerHeight = footerHeight
+        }
+                    
+        
     }
     
     public struct Row {
@@ -47,13 +60,13 @@ public class TableViewBuilder: Builder<UITableView>, UITableViewDelegate, UITabl
     
     public struct Handler {
         
-        enum Key: String {
+        public enum Key: String {
             
             case indexPath
             
         }
         
-        enum Event {
+        public enum Event {
             
             case didSelect
             
@@ -67,9 +80,15 @@ public class TableViewBuilder: Builder<UITableView>, UITableViewDelegate, UITabl
             
         }
         
-        let event: Event
+        public let event: Event
         
-        let block: ([Key: Any])->Void
+        public let block: ([Key: Any])->Void
+        
+        public init(event: Event, block: @escaping ([Key: Any])->Void = { _ in }) {
+            self.event = event
+            self.block = block
+        }
+        
     }
     
     public var sections = [Section]()

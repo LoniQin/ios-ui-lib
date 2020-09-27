@@ -43,7 +43,7 @@ public class CollectionViewBuilder: Builder<UICollectionView> {
         
     }
     
-    enum ParamKey: String {
+    public enum ParamKey: String {
         
         case indexPath
         

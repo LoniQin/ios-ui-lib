@@ -9,7 +9,7 @@ import XCTest
 final class AppBuilderTests: XCTestCase {
     @available(iOS 13.0, *)
     func testAppBuilder() {
-        let app = App(window: UIWindow())
+        let app = App(window: nil)
         app.builder.rootViewController(UITabBarController().set(\.viewControllers, Array {
             UILib.ViewController().set(\.handlers, [
                 .init(event: .didLoad) { viewController, _ in

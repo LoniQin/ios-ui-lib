@@ -8,21 +8,21 @@
 import UIKit
 import FoundationLib
 
-public class App: NSObject {
+public class App: NSObject, KeyPathConfigurable {
+    
+    public static var current = App(window: nil)
     
     public weak var window: UIWindow?
     
-    public var storage: DataStorageStrategy
+    public var storage: DataStorageStrategy = NSCacheStorage.default
     
-    public var network: Networking
+    public var network: Networking = HttpClient.default
+    
+    public var logger: Logging = DebugLogger.default
     
     public init(
-        window: UIWindow?,
-        storage: DataStorageStrategy = UserDefaults.standard,
-        network: Networking = HttpClient.default) {
+        window: UIWindow?) {
         self.window = window
-        self.storage = storage
-        self.network = network
     }
     
 }
