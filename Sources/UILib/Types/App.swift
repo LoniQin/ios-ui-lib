@@ -8,9 +8,7 @@
 import UIKit
 import FoundationLib
 
-class App: NSObject {
-    
-    static var current = App(window: nil)
+public class App: NSObject {
     
     public weak var window: UIWindow?
     

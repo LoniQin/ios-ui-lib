@@ -10,24 +10,19 @@ import FoundationLib
 
 extension App: Buildable {
     
-    typealias BuilderClass = AppBuilder
+    public typealias BuilderClass = AppBuilder
     
 }
-class AppBuilder: Builder<App> {
+public class AppBuilder: Builder<App> {
 
+    @discardableResult
     public func rootViewController(_ value: UIViewControllerConvertable) -> Self {
         build {
             $0.window?.rootViewController = value.toViewController()
             $0.window?.makeKeyAndVisible()
         }
     }
-    
-    public func storage( _ value: DataStorageStrategy) -> Self {
-        build {
-            $0.storage = value
-        }
-    }
-    
+
 }
 
 #endif

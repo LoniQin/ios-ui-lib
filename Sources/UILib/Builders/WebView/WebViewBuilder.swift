@@ -86,8 +86,7 @@ public class WebViewBuilder: Builder<WKWebView>, WKNavigationDelegate, WKUIDeleg
         return self
     }
     
-    @available(OSX 10.13, *)
-    @available(iOS 11.0, *)
+    @available(iOS 11.0, OSX 10.13, *)
     public func set(_ handler: WKURLSchemeHandler, for scheme: String) -> Self {
         value?.configuration.setURLSchemeHandler(handler, forURLScheme: scheme)
         return self
