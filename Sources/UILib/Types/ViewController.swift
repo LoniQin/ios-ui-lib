@@ -6,6 +6,7 @@
 //
 #if canImport(UIKit)
 import UIKit
+@dynamicMemberLookup
 public class ViewController: UIViewController {
     
     public struct Handler {
@@ -41,6 +42,15 @@ public class ViewController: UIViewController {
         public init(event: Event, block: @escaping (ViewController, [Key: Any])->Void) {
             self.event = event
             self.block = block
+        }
+    }
+    
+    public subscript(dynamicMember member: String) -> Any {
+        get {
+            parameters[member]!
+        }
+        set {
+            parameters[member] = newValue
         }
     }
     
