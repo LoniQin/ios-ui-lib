@@ -6,6 +6,3 @@
 //
 import FoundationLib
 import UIKit
-extension UIViewController: KeyPathConfigurable {
-    
-}

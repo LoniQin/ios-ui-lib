@@ -11,7 +11,7 @@ public class LoadingView: UIView {
     
     private var loadingLayer = CAShapeLayer()
     
-    public class Style: KeyPathConfigurable {
+    public class Style: Configurable {
         
         public var radius: CGFloat = 30
         

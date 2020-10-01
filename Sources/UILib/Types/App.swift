@@ -8,7 +8,7 @@
 import UIKit
 import FoundationLib
 
-public class App: NSObject, KeyPathConfigurable {
+public class App: NSObject {
     
     public static var current = App(window: nil)
     

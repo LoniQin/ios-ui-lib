@@ -48,6 +48,4 @@ public extension UIView {
     
 }
 
-extension UIView: KeyPathConfigurable {}
-
 #endif
