@@ -1,6 +1,6 @@
 # UILib
 
-An iOS UI Library that can help build application in an fast, elegant, safe way. 
+An iOS UI Library that can help build application in a fast, elegant, safe way. 
 
 ## Installation
 ### Swift Package Manager
