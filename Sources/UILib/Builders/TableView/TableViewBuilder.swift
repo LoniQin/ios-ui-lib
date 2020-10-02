@@ -13,6 +13,10 @@ extension UITableView: Buildable {
     public typealias BuilderClass = TableViewBuilder
 }
 public class TableViewBuilder: Builder<UITableView>, UITableViewDelegate, UITableViewDataSource {
+    
+    private static let emptyRow = Row(cell: { UITableViewCell () }, height:  { 0 })
+    
+    private static let emptySection = Section()
  
     public struct Section {
         
@@ -44,6 +48,8 @@ public class TableViewBuilder: Builder<UITableView>, UITableViewDelegate, UITabl
         
         public var cell: () -> UITableViewCell
         
+        public var isHidden = false
+        
         public var height: () -> CGFloat = { UITableView.automaticDimension }
         
         public var handlers: [Handler] = []
@@ -55,6 +61,7 @@ public class TableViewBuilder: Builder<UITableView>, UITableViewDelegate, UITabl
         }
 
         func runHandlers(_ event: Handler.Event, _ params: [Handler.Key: Any]) {
+            if isHidden { return }
             handlers.filter({$0.event == event}).forEach {
                 $0.block(params)
             }
@@ -130,8 +137,19 @@ public class TableViewBuilder: Builder<UITableView>, UITableViewDelegate, UITabl
         }
     }
     
+    func section(at index: Int) -> Section {
+        if index < sections.count {
+            return sections[index]
+        }
+        return Self.emptySection
+    }
+    
     func row(at indexPath: IndexPath) -> Row {
-        sections[indexPath.section].rows[indexPath.row]
+        let section = self.section(at: indexPath.section)
+        if indexPath.row < section.rows.count {
+            return section.rows[indexPath.row]
+        }
+        return Self.emptyRow
     }
     
     public func numberOfSections(in tableView: UITableView) -> Int {
@@ -139,32 +157,36 @@ public class TableViewBuilder: Builder<UITableView>, UITableViewDelegate, UITabl
     }
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        sections[section].header()
+        self.section(at: section).header()
     }
     
     public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        sections[section].headerHeight()
+        self.section(at: section).headerHeight()
     }
     
     public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        sections[section].footer()
+        self.section(at: section).footer()
     }
     
     public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        sections[section].footerHeight()
+        self.section(at: section).footerHeight()
     }
     
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        sections[section].rows.count
+        self.section(at: section).rows.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        row(at: indexPath).cell()
+        let item = row(at: indexPath)
+        let cell = item.cell()
+        cell.isHidden = item.isHidden
+        return cell
     }
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        row(at: indexPath).height()
+        let row = self.row(at: indexPath)
+        return row.isHidden ? 0 : row.height()
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
