@@ -17,6 +17,8 @@ public class TableViewBuilder: Builder<UITableView>, UITableViewDelegate, UITabl
     private static let emptyRow = Row(cell: { UITableViewCell () }, height:  { 0 })
     
     private static let emptySection = Section()
+    
+    private static let emptyCell = UITableViewCell().with(\.isHidden, true)
  
     public struct Section {
         
@@ -179,6 +181,9 @@ public class TableViewBuilder: Builder<UITableView>, UITableViewDelegate, UITabl
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = row(at: indexPath)
+        if item.isHidden {
+            return Self.emptyCell
+        }
         let cell = item.cell()
         cell.isHidden = item.isHidden
         return cell
