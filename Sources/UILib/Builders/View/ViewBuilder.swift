@@ -15,14 +15,21 @@ extension Builder where T: UIView {
         
         var color: UIColor
         
-        var width: CGFloat = 1
+        var width: CGFloat
         
-        var cornerRaidus: CGFloat = 0
+        var cornerRaidus: CGFloat
         
-        var maskToBounds: Bool = true
+        var maskToBounds: Bool
+        
+        public init(color: UIColor, width: CGFloat = 1, cornerRaidus: CGFloat = 0, maskToBounds: Bool = true) {
+            self.color = color
+            self.width = width
+            self.cornerRaidus = cornerRaidus
+            self.maskToBounds = true
+        }
     }
     
-    public func subview(_ view: UIView, _ strateges: LayoutStrategy...) -> Self {
+    public func appendingSubview(_ view: UIView, _ strateges: LayoutStrategy...) -> Self {
         value?.addSubview(view)
         view.makeLayout(strateges)
         return self
@@ -32,22 +39,7 @@ extension Builder where T: UIView {
         value?.makeLayout(strateges)
         return self
     }
-    
-    public func backgroundColor(_ _backgroundColor: UIColor) -> Self {
-        value?.backgroundColor = _backgroundColor
-        return self
-    }
-    
-    public func alpha(_ _alpha: CGFloat) -> Self {
-        value?.alpha = _alpha
-        return self
-    }
-    
-    public func hidden(_ _isHidden: Bool) -> Self {
-        value?.isHidden = _isHidden
-        return self
-    }
-    
+
     public func border(_ border: Border) -> Self {
         value?.layer.borderWidth = border.width
         value?.layer.borderColor = border.color.cgColor
