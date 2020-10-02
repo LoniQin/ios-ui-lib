@@ -11,7 +11,6 @@ import FoundationLib
 
 extension UITableView: Buildable {
     public typealias BuilderClass = TableViewBuilder
-    
 }
 public class TableViewBuilder: Builder<UITableView>, UITableViewDelegate, UITableViewDataSource {
  
@@ -39,7 +38,6 @@ public class TableViewBuilder: Builder<UITableView>, UITableViewDelegate, UITabl
             self.footerHeight = footerHeight
         }
                     
-        
     }
     
     public struct Row {
@@ -49,6 +47,12 @@ public class TableViewBuilder: Builder<UITableView>, UITableViewDelegate, UITabl
         public var height: () -> CGFloat = { UITableView.automaticDimension }
         
         public var handlers: [Handler] = []
+        
+        public init(cell: @escaping () ->UITableViewCell, height: @escaping () -> CGFloat = { UITableView.automaticDimension }, handlers: [Handler] = []) {
+            self.cell = cell
+            self.height = height
+            self.handlers = handlers
+        }
 
         func runHandlers(_ event: Handler.Event, _ params: [Handler.Key: Any]) {
             handlers.filter({$0.event == event}).forEach {

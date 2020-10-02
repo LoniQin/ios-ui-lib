@@ -4,9 +4,9 @@ import XCTest
 final class LoadingViewTests: XCTestCase {
     func testLoadingView() {
         let style = LoadingView.Style.default
-            .set(\.radius, 10)
-            .set(\.ringColor, .red)
-            .set(\.ringWidth, 2)
+            .with(\.radius, 10)
+            .with(\.ringColor, .red)
+            .with(\.ringWidth, 2)
         let loadingView = LoadingView(
             style: style
         )
