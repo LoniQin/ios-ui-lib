@@ -36,6 +36,11 @@ public extension UIView {
         }
     }
     
+    func becomeSubview(of view: UIView) -> Self {
+        view.addSubview(self)
+        return self
+    }
+    
     func addSubviews(@ArrayBuilder _ builder: () -> [UIView]) {
         addSubviews(builder())
     }
