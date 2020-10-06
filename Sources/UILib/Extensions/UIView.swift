@@ -37,7 +37,7 @@ public extension UIView {
         return self
     }
     
-    @objc func handleTapEvent(_ gesture: UITapGestureRecognizer) {
+    @objc fileprivate func handleTapEvent(_ gesture: UITapGestureRecognizer) {
         let block: GestureRecognizerBlock? = getAssociatedValue(with: &tapKey)
         block?(gesture)
     }
@@ -49,7 +49,7 @@ public extension UIView {
         return self
     }
     
-    @objc func handleSwipeEvent(_ gesture: UITapGestureRecognizer) {
+    @objc fileprivate func handleSwipeEvent(_ gesture: UITapGestureRecognizer) {
         let block: GestureRecognizerBlock? = getAssociatedValue(with: &swipeKey)
         block?(gesture)
     }
@@ -61,7 +61,7 @@ public extension UIView {
         return self
     }
     
-    @objc func handlePanEvent(_ gesture: UITapGestureRecognizer) {
+    @objc fileprivate func handlePanEvent(_ gesture: UITapGestureRecognizer) {
         let block: GestureRecognizerBlock? = getAssociatedValue(with: &panKey)
         block?(gesture)
     }
@@ -73,7 +73,7 @@ public extension UIView {
         return self
     }
     
-    @objc func handleLongPressEvent(_ gesture: UILongPressGestureRecognizer) {
+    @objc fileprivate func handleLongPressEvent(_ gesture: UILongPressGestureRecognizer) {
         let block: GestureRecognizerBlock? = getAssociatedValue(with: &longPressKey)
         block?(gesture)
     }
@@ -85,7 +85,7 @@ public extension UIView {
         return self
     }
     
-    @objc func handlePinchEvent(_ gesture: UIPinchGestureRecognizer) {
+    @objc fileprivate func handlePinchEvent(_ gesture: UIPinchGestureRecognizer) {
         let block: GestureRecognizerBlock? = getAssociatedValue(with: &pinchKey)
         block?(gesture)
     }
@@ -97,7 +97,7 @@ public extension UIView {
         return self
     }
     
-    @objc func handleRotationEvent(_ gesture: UIRotationGestureRecognizer) {
+    @objc fileprivate func handleRotationEvent(_ gesture: UIRotationGestureRecognizer) {
         let block: GestureRecognizerBlock? = getAssociatedValue(with: &rotationKey)
         block?(gesture)
     }
