@@ -10,7 +10,8 @@ import UIKit
 
 public extension UIView {
     
-    func makeLayout(_ strategy: LayoutStrategy) {
+    @discardableResult
+    func makeLayout(_ strategy: LayoutStrategy) -> Self {
         if translatesAutoresizingMaskIntoConstraints {
             translatesAutoresizingMaskIntoConstraints.toggle()
         }
@@ -20,13 +21,16 @@ public extension UIView {
         } else {
             superview?.addConstraints(constraints)
         }
+        return self
     }
     
-    func makeLayout(_ strategies: [LayoutStrategy]) {
+    @discardableResult
+    func makeLayout(_ strategies: [LayoutStrategy]) -> Self {
         makeLayout(.strategies(strategies))
     }
     
-    func makeLayout(_ strategies: LayoutStrategy...) {
+    @discardableResult
+    func makeLayout(_ strategies: LayoutStrategy...) -> Self {
         makeLayout(.strategies(strategies))
     }
     

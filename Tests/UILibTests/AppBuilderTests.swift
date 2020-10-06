@@ -14,10 +14,7 @@ final class AppBuilderTests: XCTestCase {
             ViewController().with(\.handlers, Array {
                 ViewController.Handler(event: .didLoad) { viewController, _ in
                     print("Did load")
-                    viewController.contentLabel = UILabel().with(\.text, "First").with({ (label) in
-                        viewController.view.addSubview(label)
-                        label.makeLayout(.equalCenter())
-                    })
+                    viewController.contentLabel = UILabel().with(\.text, "First").becomeSubview(of: viewController.view).makeLayout(.equalCenter())
                     let contentLabel: UILabel = viewController.contentLabel
                     contentLabel.text?.assert.equal("First")
                 }
