@@ -6,8 +6,12 @@
 //
 #if canImport(UIKit)
 import UIKit
+import FoundationLib
 @dynamicMemberLookup
-public class ViewController: UIViewController {
+public class ViewController: UIViewController, DynamicMemberLookupable {
+    
+    public var params: [String : Any] = [:]
+    
     
     public struct Handler {
         

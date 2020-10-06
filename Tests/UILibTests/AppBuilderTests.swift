@@ -10,21 +10,24 @@ final class AppBuilderTests: XCTestCase {
     @available(iOS 13.0, *)
     func testAppBuilder() {
         let app = App(window: nil)
-        app.builder.rootViewController(UITabBarController().with(\.viewControllers, Array {
-            UILib.ViewController().with(\.handlers, [
+        app.builder.rootViewController(UITabBarController().with(\.viewControllers, Array<ViewController> {
+            ViewController().with(\.handlers, [
                 .init(event: .didLoad) { viewController, _ in
                     print("Did load")
                     let label = UILabel().with(\.text, "First")
                     viewController.view.addSubview(label)
                     label.makeLayout(.equalCenter())
                     viewController.contentLabel = label
+                    let contentLabel: UILabel = viewController.contentLabel
+                    contentLabel.text?.assert.equal("First")
                 },
                 .init(event: .willAppear) { viewController ,_ in
                     let label = viewController.contentLabel as? UILabel
                     label?.text.assert.equal("First")
+                    
                 }
             ]).with(\.tabBarItem, UITabBarItem(title: "First", image: nil, selectedImage: nil))
-            UILib.ViewController().with(\.handlers, [
+            ViewController().with(\.handlers, [
                 .init(event: .didLoad) { a, _ in
                     print("Did load")
                     a.view.backgroundColor = .systemBackground
