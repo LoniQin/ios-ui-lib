@@ -12,11 +12,12 @@ public enum LayoutStrategy: LayoutConstraintConvertable {
     
     case constraint(
         attribute: NSLayoutConstraint.Attribute,
-        relation: NSLayoutConstraint.Relation,
-        secondAttribute: NSLayoutConstraint.Attribute?,
-        multiplay: CGFloat,
-        constant: CGFloat,
-        priority: UILayoutPriority = .required
+        relation: NSLayoutConstraint.Relation = .equal,
+        secondAttribute: NSLayoutConstraint.Attribute? = nil,
+        multiplay: CGFloat = 1.0,
+        constant: CGFloat = 0.0,
+        priority: UILayoutPriority = .required,
+        relateToSuperView: Bool = true
     )
     
     case constraints([LayoutConstraint])
@@ -85,14 +86,23 @@ public enum LayoutStrategy: LayoutConstraintConvertable {
     
     public func toLayoutConstraints(with firstItem: UIView) -> [NSLayoutConstraint] {
         switch self {
-        case .constraint(let constraint, let relation, let secondAttribute, let multiplay, let constant, let priority):
+        case .constraint(
+            let constraint,
+            let relation,
+            let secondAttribute,
+            let multiplay,
+            let constant,
+            let priority,
+            let relateToSuperView
+            ):
             return LayoutConstraint(
                 attribute: constraint,
                 relation: relation,
                 secondAttribute: secondAttribute,
                 multiplay: multiplay,
                 constant: constant,
-                priority: priority
+                priority: priority,
+                relateToSuperView: relateToSuperView
             ).toLayoutConstraints(with: firstItem)
         case .constraints(let constraints):
             return constraints.flatMap {
