@@ -73,7 +73,7 @@ public extension UIView {
         return self
     }
     
-    @objc func handleLongPressEvent(_ gesture: UITapGestureRecognizer) {
+    @objc func handleLongPressEvent(_ gesture: UILongPressGestureRecognizer) {
         let block: GestureRecognizerBlock? = getAssociatedValue(with: &longPressKey)
         block?(gesture)
     }
