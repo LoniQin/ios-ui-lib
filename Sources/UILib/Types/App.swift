@@ -14,7 +14,7 @@ public class App: NSObject {
     
     public weak var window: UIWindow?
     
-    public var storage: DataStorageStrategy = NSCacheStorage.default
+    public var storage: DataStorage = CacheStorage.default
     
     public var network: Networking = HttpClient.default
     
