@@ -108,32 +108,31 @@ public extension UIView {
 // MARK: Add and remove subviews
 public extension UIView {
     @discardableResult
-     func addSubviews(_ views: [UIView]) -> Self  {
-         views.forEach {
-             addSubview($0)
-         }
-         return self
-     }
+    func addSubviews(_ views: [UIView]) -> Self  {
+        views.forEach {
+            addSubview($0)
+        }
+        return self
+    }
      
      @discardableResult
      func becomeSubview(of view: UIView) -> Self {
-         view.addSubview(self)
-         return self
+        view.addSubview(self)
+        return self
      }
      
-     @discardableResult
-     func addSubviews(@ArrayBuilder _ builder: () -> [UIView]) -> Self {
-         addSubviews(builder())
-     }
+    @discardableResult
+    func addSubviews(@ArrayBuilder _ builder: () -> [UIView]) -> Self {
+        addSubviews(builder())
+    }
      
-     @discardableResult
-     func removeSubviews(_ views: [UIView]) -> Self {
+    @discardableResult
+    func removeSubviews(_ views: [UIView]) -> Self {
          views.forEach {
              $0.removeFromSuperview()
          }
          return self
-     }
-    
+    }
 }
 
 // MARK: Add lines
