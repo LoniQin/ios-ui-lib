@@ -4,7 +4,7 @@
 //
 //  Created by lonnie on 2020/9/8.
 //
-#if canImport(UIKit)
+#if !os(macOS)
 import UIKit
 import FoundationLib
 extension UICollectionView: Buildable {

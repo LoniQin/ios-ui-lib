@@ -4,7 +4,7 @@
 //
 //  Created by lonnie on 2020/9/9.
 //
-#if canImport(UIKit)
+#if !os(macOS)
 import FoundationLib
 import UIKit
 extension UIButton: Buildable {

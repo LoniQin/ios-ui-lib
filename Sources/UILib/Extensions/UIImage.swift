@@ -5,7 +5,7 @@
 //  Created by lonnie on 2020/8/23.
 //
 
-#if canImport(UIKit)
+#if !os(macOS)
 import UIKit
 public extension UIImage {
     

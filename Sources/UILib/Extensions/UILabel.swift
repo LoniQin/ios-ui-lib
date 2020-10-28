@@ -6,7 +6,7 @@
 //
 
 import Foundation
-#if canImport(UIKit)
+#if !os(macOS)
 
 import UIKit
 public extension UILabel {

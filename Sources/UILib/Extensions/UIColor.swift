@@ -4,7 +4,7 @@
 //
 //  Created by lonnie on 2020/8/19.
 //
-#if canImport(UIKit)
+#if !os(macOS)
 
 import UIKit
 

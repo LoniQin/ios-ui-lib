@@ -4,7 +4,7 @@
 //
 //  Created by lonnie on 2020/9/4.
 //
-#if canImport(UIKit)
+#if !os(macOS)
 import UIKit
 public struct LayoutConstraint: LayoutConstraintConvertable {
     

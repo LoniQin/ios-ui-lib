@@ -7,7 +7,7 @@ final class UILibTests: XCTestCase {
         
     }
     
-    #if canImport(UIKit)
+    #if !os(macOS)
     
     class TableViewCell: UITableViewCell {
         

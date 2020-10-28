@@ -4,7 +4,7 @@
 //
 //  Created by lonnie on 2020/9/25.
 //
-#if canImport(UIKit)
+#if !os(macOS)
 import UIKit
 import FoundationLib
 public class LoadingView: UIView {

@@ -2,6 +2,7 @@ import XCTest
 @testable import UILib
 
 final class LoadingViewTests: XCTestCase {
+    #if !os(macOS)
     func testLoadingView() {
         let style = LoadingView.Style.default
             .with(\.radius, 10)
@@ -14,4 +15,5 @@ final class LoadingViewTests: XCTestCase {
         loadingView.style.ringColor.assert.equal(.red)
         loadingView.style.ringWidth.assert.equal(2)
     }
+    #endif
 }

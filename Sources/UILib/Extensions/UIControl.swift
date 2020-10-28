@@ -5,7 +5,7 @@
 //  Created by gzuser on 8/20/20.
 //  Copyright © 2020 com.lonnie.demos. All rights reserved.
 //
-#if canImport(UIKit)
+#if !os(macOS)
 
 import UIKit
 import FoundationLib

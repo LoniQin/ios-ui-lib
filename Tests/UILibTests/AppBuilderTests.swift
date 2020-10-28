@@ -7,6 +7,7 @@
 import XCTest
 @testable import UILib
 final class AppBuilderTests: XCTestCase {
+    #if !os(macOS)
     @available(iOS 13.0, *)
     func testAppBuilder() {
         let app = App(window: nil)
@@ -40,4 +41,5 @@ final class AppBuilderTests: XCTestCase {
         let vc = app.window?.rootViewController as? UITabBarController
         vc?.viewControllers?.count.assert.equal(2)
     }
+    #endif
 }
